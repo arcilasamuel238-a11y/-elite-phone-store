@@ -4,51 +4,71 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Elite Phone Store</title>
+
 <style>
-/* --- estilos --- */
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial;background:#000;color:#fff}
+
 header{background:#000;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;border-bottom:1px solid #111;z-index:50}
 .logo{font-size:22px;font-weight:600}
 nav{display:flex;align-items:center}
-.search{margin-left:20px;padding:8px 12px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;width:220px}
+
+.search-box{display:flex;align-items:center;background:#111;border:1px solid #333;border-radius:10px;padding:4px 8px;margin-left:20px}
+.search{flex:1;border:none;background:transparent;color:#fff;padding:8px;outline:none}
+.search-icon{cursor:pointer;font-size:16px;color:#aaa;margin-left:6px;transition:color .2s}
+.search-icon:hover{color:#fff}
+
 .admin-btn{margin-left:10px;background:#0ea5e9;border:none;color:#fff;padding:8px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600}
+
 .cart-top{position:relative;cursor:pointer;font-size:18px;margin-left:20px;background:#fff;color:#000;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600}
 .badge{position:absolute;top:-8px;right:-10px;background:red;color:#fff;border-radius:50%;font-size:11px;padding:2px 6px}
+
 .hero{padding:70px 20px 40px;text-align:center}
 .hero h1{font-size:42px;margin:0}
 .hero p{color:#aaa;margin-top:10px}
+
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;padding:40px;max-width:1400px;margin:auto}
+
 .card{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:22px;padding:18px;transition:.25s}
 .card:hover{transform:translateY(-6px);border-color:#2a2a2a}
 .card img{width:100%;height:260px;object-fit:cover;border-radius:14px;background:#111;cursor:pointer;transition:transform .3s ease}
 .card img:hover{transform:scale(1.05)}
 @media(max-width:600px){.card img{height:200px}}
+
 .card h3{margin:12px 0 6px}
 .spec{font-size:13px;color:#aaa;line-height:1.4}
 .price{margin:10px 0;font-size:20px;font-weight:600;color:#22c55e}
+
 button{width:100%;padding:12px;border:none;border-radius:12px;background:#0ea5e9;color:#fff;font-weight:600;cursor:pointer;margin-top:6px}
 button:hover{opacity:.9}
+
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:100}
 .modal.open{display:flex}
 .modal-box{background:#111;padding:30px;border-radius:20px;max-width:500px;width:90%}
 .close-modal{float:right;cursor:pointer}
+
 .cart{position:fixed;top:0;right:-360px;width:340px;height:100%;background:#050505;border-left:1px solid #111;padding:20px;transition:.3s;z-index:90}
 .cart.open{right:0}
 .item{font-size:14px;margin-bottom:8px;border-bottom:1px solid #111;padding-bottom:6px}
 .total{margin-top:10px;font-weight:600}
+
 .admin-panel{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:200}
 .admin-box{background:#111;padding:25px;border-radius:18px;width:90%;max-width:400px}
 .admin-box input{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:none}
+
 footer{text-align:center;padding:40px 20px;color:#777;border-top:1px solid #111;margin-top:50px}
 </style>
 </head>
 
 <body>
+
 <header>
 <div class="logo">Elite Phone Store</div>
 <nav>
-<input class="search" id="search" placeholder="Buscar equipo..." oninput="filterProducts()" />
+<div class="search-box">
+  <input class="search" id="search" placeholder="Buscar equipo..." />
+  <span class="search-icon" onclick="filterProducts()">🔍</span>
+</div>
 <button class="admin-btn" onclick="openLogin()">Admin</button>
 <span class="cart-top" onclick="toggleCart()">🛒<span id="badge" class="badge" style="display:none">0</span></span>
 </nav>
@@ -102,10 +122,10 @@ const USER="admin"
 const PASSWORD="Heidy.011625"
 
 let products=[
-{name:"iPhone 13",price:1800000,specs:"Pantalla 6.1 · Chip A15 · Cámara 12MP",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-midnight"},
-{name:"iPhone 14",price:2200000,specs:"Pantalla 6.1 · Chip A15 · Cámara mejorada",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-midnight"},
-{name:"iPhone 15",price:2800000,specs:"USB‑C · Cámara 48MP · Chip A16",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pink"},
-{name:"iPhone 15 Pro Max",price:3200000,specs:"Zoom 5x · Titanio · A17 Pro",mem:"256GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-max-natural"}
+{name:"iPhone 13",price:1800000,specs:"Pantalla 6.1 · Chip A15 · Cámara 12MP",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-midnight.jpg"},
+{name:"iPhone 14",price:2200000,specs:"Pantalla 6.1 · Chip A15 · Cámara mejorada",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-midnight.jpg"},
+{name:"iPhone 15",price:2800000,specs:"USB‑C · Cámara 48MP · Chip A16",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pink.jpg"},
+{name:"iPhone 15 Pro Max",price:3200000,specs:"Zoom 5x · Titanio · A17 Pro",mem:"256GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-max-natural.jpg"}
 ]
 
 let filtered=[...products]
@@ -113,6 +133,10 @@ const grid=document.getElementById('grid')
 
 function renderProducts(){
   grid.innerHTML=""
+  if(filtered.length===0){
+    grid.innerHTML="<p style='color:#aaa;text-align:center'>No se encontraron productos</p>"
+    return
+  }
   filtered.forEach(p=>{
     const div=document.createElement('div')
     div.className='card'
@@ -128,129 +152,12 @@ function renderProducts(){
 }
 renderProducts()
 
+// búsqueda tolerante a errores simples
 function filterProducts(){
   const q=search.value.toLowerCase()
-  filtered=products.filter(p=>p.name.toLowerCase().includes(q))
+  filtered=products.filter(p=>
+    p.name.toLowerCase().includes(q) ||
+    p.specs.toLowerCase().includes(q) ||
+    p.mem.toLowerCase().includes(q)
+  )
   renderProducts()
-}
-
-let cart=[]
-function toggleCart(){document.getElementById('cart').classList.toggle('open')}
-function add(name,price){cart.push({name,price});renderCart()}
-function clearCart(){cart=[];renderCart()}
-
-function renderCart(){
-  let html="",total=0
-  cart.forEach(p=>{
-    html+=`<div class='item'>${p.name} - $${p.price.toLocaleString()}</div>`
-    total+=p.price
-  })
-  list.innerHTML=html
-  sum.innerText="Total: $"+total.toLocaleString()
-  badge.style.display=cart.length?"block
-    function renderProducts(){
-  grid.innerHTML=""
-  filtered.forEach(p=>{
-    const div=document.createElement('div')
-    div.className='card'
-    div.innerHTML=`
-      <img src="${p.img}" onclick="openModal('${p.name}','${p.specs}','${p.mem}')">
-      <h3>${p.name}</h3>
-      <div class="spec">${p.specs}</div>
-      <div class="price">$${p.price.toLocaleString()}</div>
-      <button onclick="add('${p.name}',${p.price})">Añadir al carrito</button>
-    `
-    grid.appendChild(div)
-  })
-}
-renderProducts()
-
-function renderCart(){
-  let html="",total=0
-  cart.forEach(p=>{
-    html+=`<div class='item'>${p.name} - $${p.price.toLocaleString()}</div>`
-    total+=p.price
-  })
-  list.innerHTML=html
-  sum.innerText="Total: $"+total.toLocaleString()
-  badge.style.display=cart.length?"block":"none"
-  badge.innerText=cart.length
-}
-
-function whatsapp(){
-  if(!cart.length)return alert('Carrito vacío')
-  let msg='Hola quiero comprar:%0A',total=0
-  cart.forEach(p=>{
-    msg+=`- ${p.name} $${p.price.toLocaleString()}%0A`
-    total+=p.price
-  })
-  msg+=`%0ATotal: $${total.toLocaleString()}`
-  window.open(`https://wa.me/573041368485?text=${msg}`)
-}
-
-function openModal(t,s,m){
-  modal.classList.add('open')
-  mTitle.innerText=t
-  mSpecs.innerText=s
-  mMem.innerText='Memorias disponibles: '+m
-}
-function closeModal(){modal.classList.remove('open')}
-
-function openLogin(){login.style.display='flex'}
-function closeLogin(){login.style.display='none'}
-
-function loginAdmin(){
-  if(user.value===USER && pass.value===PASSWORD){
-    alert('Bienvenido administrador')
-    closeLogin()
-  } else {
-    alert('Datos incorrectos')
-  }
-}
-</script>
-</body>
-</html>
-
-// Función para calcular la distancia de Levenshtein
-function levenshtein(a, b) {
-  const matrix = Array.from({ length: a.length + 1 }, () => []);
-  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
-  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
-
-  for (let i = 1; i <= a.length; i++) {
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      matrix[i][j] = Math.min(
-        matrix[i - 1][j] + 1,      // eliminación
-        matrix[i][j - 1] + 1,      // inserción
-        matrix[i - 1][j - 1] + cost // sustitución
-      );
-    }
-  }
-  return matrix[a.length][b.length];
-}
-
-// Nueva función de búsqueda tolerante
-function filterProducts(){
-  const q = search.value.toLowerCase()
-  filtered = products.filter(p => {
-    const name = p.name.toLowerCase()
-    const specs = p.specs.toLowerCase()
-    const mem = p.mem.toLowerCase()
-
-    // Coincidencia exacta o tolerancia de hasta 2 errores
-    return (
-      name.includes(q) || specs.includes(q) || mem.includes(q) ||
-      levenshtein(name, q) <= 2 || levenshtein(specs, q) <= 2 || levenshtein(mem, q) <= 2
-    )
-  })
-  renderProducts()
-}
-// Ejecutar búsqueda al presionar Enter
-document.getElementById('search').addEventListener('keyup', function(e){
-  if(e.key === 'Enter'){
-    filterProducts()
-  }
-})
-
-        
