@@ -210,4 +210,40 @@ function loginAdmin(){
 </script>
 </body>
 </html>
+// Función para calcular la distancia de Levenshtein
+function levenshtein(a, b) {
+  const matrix = Array.from({ length: a.length + 1 }, () => []);
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
 
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,      // eliminación
+        matrix[i][j - 1] + 1,      // inserción
+        matrix[i - 1][j - 1] + cost // sustitución
+      );
+    }
+  }
+  return matrix[a.length][b.length];
+}
+
+// Nueva función de búsqueda tolerante
+function filterProducts(){
+  const q = search.value.toLowerCase()
+  filtered = products.filter(p => {
+    const name = p.name.toLowerCase()
+    const specs = p.specs.toLowerCase()
+    const mem = p.mem.toLowerCase()
+
+    // Coincidencia exacta o tolerancia de hasta 2 errores
+    return (
+      name.includes(q) || specs.includes(q) || mem.includes(q) ||
+      levenshtein(name, q) <= 2 || levenshtein(specs, q) <= 2 || levenshtein(mem, q) <= 2
+    )
+  })
+  renderProducts()
+}
+
+        
