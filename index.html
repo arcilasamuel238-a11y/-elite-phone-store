@@ -1,8 +1,3 @@
-Sebastián, lo que te está pasando con la página en blanco es porque el archivo quedó **cortado** en la parte del `<script>` y el navegador no puede interpretarlo. Te paso el **index.html completo y corregido**, listo para pegar en tu dominio Netlify.  
-
-Copia todo este contenido y reemplaza tu archivo actual:
-
-```html
 <!DOCTYPE html>
 <html lang="es-CO">
 <head>
@@ -176,4 +171,4 @@ function renderCart(){
     html+=`<div class='item'>${p.name} - $${p.price.toLocaleString()}</div>`
     total+=p.price
   })
- 
+
