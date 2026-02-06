@@ -25,4 +25,126 @@ nav{display:flex;align-items:center}
 .card img:hover{transform:scale(1.05)}
 @media(max-width:600px){.card img{height:200px}}
 .card h3{margin:12px 0 6px}
-.spec{font-size:13px;color:#aaa;line-height:1.4
+.spec{font-size:13px;color:#aaa;line-height:1.4}
+.price{margin:10px 0;font-size:20px;font-weight:600;color:#22c55e}
+button{width:100%;padding:12px;border:none;border-radius:12px;background:#0ea5e9;color:#fff;font-weight:600;cursor:pointer;margin-top:6px}
+button:hover{opacity:.9}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:100}
+.modal.open{display:flex}
+.modal-box{background:#111;padding:30px;border-radius:20px;max-width:500px;width:90%}
+.close-modal{float:right;cursor:pointer}
+.cart{position:fixed;top:0;right:-360px;width:340px;height:100%;background:#050505;border-left:1px solid #111;padding:20px;transition:.3s;z-index:90}
+.cart.open{right:0}
+.item{font-size:14px;margin-bottom:8px;border-bottom:1px solid #111;padding-bottom:6px}
+.total{margin-top:10px;font-weight:600}
+.admin-panel{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:200}
+.admin-box{background:#111;padding:25px;border-radius:18px;width:90%;max-width:400px}
+.admin-box input{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:none}
+footer{text-align:center;padding:40px 20px;color:#777;border-top:1px solid #111;margin-top:50px}
+</style>
+</head>
+
+<body>
+<header>
+<div class="logo">Elite Phone Store</div>
+<nav>
+<input class="search" id="search" placeholder="Buscar equipo..." oninput="filterProducts()" />
+<button class="admin-btn" onclick="openLogin()">Admin</button>
+<span class="cart-top" onclick="toggleCart()">🛒<span id="badge" class="badge" style="display:none">0</span></span>
+</nav>
+</header>
+
+<section class="hero">
+<h1>iPhones disponibles</h1>
+<p>Equipos nuevos, seminuevos y de exhibición</p>
+</section>
+
+<section class="grid" id="grid"></section>
+
+<div id="modal" class="modal">
+<div class="modal-box">
+<span class="close-modal" onclick="closeModal()">✕</span>
+<h2 id="mTitle"></h2>
+<p id="mSpecs"></p>
+<p id="mMem"></p>
+</div>
+</div>
+
+<div id="cart" class="cart">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h2>Carrito</h2>
+<div>
+<span style="cursor:pointer;margin-right:10px" onclick="clearCart()">🗑 Vaciar</span>
+<span style="cursor:pointer" onclick="toggleCart()">✕</span>
+</div>
+</div>
+<div id="list"></div>
+<div class="total" id="sum">Total: $0</div>
+<button onclick="whatsapp()">Comprar por WhatsApp</button>
+</div>
+
+<div id="login" class="admin-panel">
+<div class="admin-box">
+<h3>Acceso administrador</h3>
+<input id="user" placeholder="Usuario" />
+<input id="pass" type="password" placeholder="Contraseña" />
+<button onclick="loginAdmin()">Entrar</button>
+<button onclick="closeLogin()">Cerrar</button>
+</div>
+</div>
+
+<footer>
+© 2026 Elite Phone Store · Atención por WhatsApp: +57 304 136 8485
+</footer>
+
+<script>
+const USER="admin"
+const PASSWORD="Heidy.011625"
+
+let products=[
+{name:"iPhone 13",price:1800000,specs:"Pantalla 6.1 · Chip A15 · Cámara 12MP",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-midnight"},
+{name:"iPhone 14",price:2200000,specs:"Pantalla 6.1 · Chip A15 · Cámara mejorada",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-midnight"},
+{name:"iPhone 15",price:2800000,specs:"USB‑C · Cámara 48MP · Chip A16",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pink"},
+{name:"iPhone 15 Pro Max",price:3200000,specs:"Zoom 5x · Titanio · A17 Pro",mem:"256GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-max-natural"}
+]
+
+let filtered=[...products]
+const grid=document.getElementById('grid')
+
+function renderProducts(){
+  grid.innerHTML=""
+  filtered.forEach(p=>{
+    const div=document.createElement('div')
+    div.className='card'
+    div.innerHTML=`
+      <img src="${p.img}" onclick="openModal('${p.name}','${p.specs}','${p.mem}')">
+      <h3>${p.name}</h3>
+      <div class="spec">${p.specs}</div>
+      <div class="price">$${p.price.toLocaleString()}</div>
+      <button onclick="add('${p.name}',${p.price})">Añadir al carrito</button>
+    `
+    grid.appendChild(div)
+  })
+}
+renderProducts()
+
+function filterProducts(){
+  const q=search.value.toLowerCase()
+  filtered=products.filter(p=>p.name.toLowerCase().includes(q))
+  renderProducts()
+}
+
+let cart=[]
+function toggleCart(){document.getElementById('cart').classList.toggle('open')}
+function add(name,price){cart.push({name,price});renderCart()}
+function clearCart(){cart=[];renderCart()}
+
+function renderCart(){
+  let html="",total=0
+  cart.forEach(p=>{
+    html+=`<div class='item'>${p.name} - $${p.price.toLocaleString()}</div>`
+    total+=p.price
+  })
+  list.innerHTML=html
+  sum.innerText="Total: $"+total.toLocaleString()
+  badge.style.display=cart.length?"block
