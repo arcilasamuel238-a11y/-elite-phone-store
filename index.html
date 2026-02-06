@@ -1,256 +1,188 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CO">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Elite Phone Store</title>
 
 <style>
-body{
-  font-family: Arial, sans-serif;
-  margin:0;
-  background:#f2f2f2;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial;background:#000;color:#fff}
 
-header{
-  background:#000;
-  color:white;
-  padding:15px;
-  text-align:center;
-}
+header{background:#000;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;border-bottom:1px solid #111;z-index:50}
+.logo{font-size:22px;font-weight:600}
+nav{display:flex;align-items:center}
+nav a{margin-left:20px;color:#aaa;text-decoration:none;font-size:14px}
+nav a:hover{color:#fff}
 
-.search{
-  width:90%;
-  max-width:400px;
-  padding:10px;
-  margin:15px auto;
-  display:block;
-}
+.search{margin-left:20px;padding:8px 12px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;width:220px}
 
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:15px;
-  padding:20px;
-}
+.admin-btn{margin-left:10px;background:#0ea5e9;border:none;color:#fff;padding:8px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600}
 
-.card{
-  background:white;
-  padding:15px;
-  border-radius:10px;
-  text-align:center;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
-}
+.cart-top{position:relative;cursor:pointer;font-size:18px;margin-left:20px;background:#fff;color:#000;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600}
+.badge{position:absolute;top:-8px;right:-10px;background:red;color:#fff;border-radius:50%;font-size:11px;padding:2px 6px}
 
-.card img{
-  width:100%;
-  height:auto;
-  max-width:100%;
-  border-radius:10px;
-  margin-bottom:10px;
-  object-fit:contain;
-}
+.hero{padding:70px 20px 40px;text-align:center}
+.hero h1{font-size:42px;margin:0}
+.hero p{color:#aaa;margin-top:10px}
 
-button{
-  padding:8px 12px;
-  margin-top:8px;
-  cursor:pointer;
-  border:none;
-  border-radius:5px;
-  background:#000;
-  color:#fff;
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;padding:40px;max-width:1400px;margin:auto}
 
-button:hover{
-  background:#444;
-}
+.card{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:22px;padding:18px;transition:.25s}
+.card:hover{transform:translateY(-6px);border-color:#2a2a2a}
 
-#cart{
-  background:#fff;
-  padding:15px;
-  border-radius:10px;
-  margin:20px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
-}
+.card img{width:100%;height:260px;object-fit:contain;border-radius:14px;background:#111;cursor:pointer}
+.card h3{margin:12px 0 6px}
+.spec{font-size:13px;color:#aaa;line-height:1.4}
+.price{margin:10px 0;font-size:20px;font-weight:600;color:#22c55e}
+
+button{width:100%;padding:12px;border:none;border-radius:12px;background:#0ea5e9;color:#fff;font-weight:600;cursor:pointer;margin-top:6px}
+button:hover{opacity:.9}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:100}
+.modal.open{display:flex}
+.modal-box{background:#111;padding:30px;border-radius:20px;max-width:500px;width:90%}
+.close-modal{float:right;cursor:pointer}
+
+.cart{position:fixed;top:0;right:-360px;width:340px;height:100%;background:#050505;border-left:1px solid #111;padding:20px;transition:.3s;z-index:90}
+.cart.open{right:0}
+.item{font-size:14px;margin-bottom:8px;border-bottom:1px solid #111;padding-bottom:6px}
+.total{margin-top:10px;font-weight:600}
+
+.admin-panel{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:200}
+.admin-box{background:#111;padding:25px;border-radius:18px;width:90%;max-width:400px}
+.admin-box input{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:none}
+
+footer{text-align:center;padding:40px 20px;color:#777;border-top:1px solid #111;margin-top:50px}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>Elite Phone Store</h1>
-<button onclick="login()">Modo Admin</button>
+<div class="logo">Elite Phone Store</div>
+
+<nav>
+<input class="search" id="search" placeholder="Buscar equipo..." oninput="filterProducts()" />
+<button class="admin-btn" onclick="openLogin()">Admin</button>
+<span class="cart-top" onclick="toggleCart()">🛒<span id="badge" class="badge" style="display:none">0</span></span>
+</nav>
 </header>
 
-<input class="search" placeholder="Buscar equipo..." onkeyup="buscar(this.value)">
+<section class="hero">
+<h1>iPhones disponibles</h1>
+<p>Equipos nuevos, seminuevos y de exhibición</p>
+</section>
 
-<div class="products" id="products"></div>
+<section class="grid" id="grid"></section>
 
-<div id="cart">
-  <h2>🛒 Carrito de compras</h2>
-  <ul id="cartItems"></ul>
-  <strong id="cartTotal"></strong><br>
-  <button onclick="checkout()">Finalizar compra</button>
+<div id="modal" class="modal">
+<div class="modal-box">
+<span class="close-modal" onclick="closeModal()">✕</span>
+<h2 id="mTitle"></h2>
+<p id="mSpecs"></p>
+<p id="mMem"></p>
+</div>
 </div>
 
+<div id="cart" class="cart">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h2>Carrito</h2>
+<div>
+<span style="cursor:pointer;margin-right:10px" onclick="clearCart()">🗑 Vaciar</span>
+<span style="cursor:pointer" onclick="toggleCart()">✕</span>
+</div>
+</div>
+<div id="list"></div>
+<div class="total" id="sum">Total: $0</div>
+<button onclick="whatsapp()">Comprar por WhatsApp</button>
+</div>
+
+<div id="login" class="admin-panel">
+<div class="admin-box">
+<h3>Acceso administrador</h3>
+<input id="user" placeholder="Usuario" />
+<input id="pass" type="password" placeholder="Contraseña" />
+<button onclick="loginAdmin()">Entrar</button>
+<button onclick="closeLogin()">Cerrar</button>
+</div>
+</div>
+
+<footer>
+© 2026 Elite Phone Store · Atención por WhatsApp: +57 304 136 8485
+</footer>
+
 <script>
-const USER="admin";
-const PASS="Heidy.011625";
+const USER="admin"
+const PASSWORD="Heidy.011625"
 
-let admin=false;
-let carrito=[];
+let products=[
+{name:"iPhone 13",price:1800000,specs:"Pantalla 6.1 · Chip A15 · Cámara 12MP",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-midnight"},
+{name:"iPhone 14",price:2200000,specs:"Pantalla 6.1 · Chip A15 · Cámara mejorada",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-midnight"},
+{name:"iPhone 15",price:2800000,specs:"USB‑C · Cámara 48MP · Chip A16",mem:"128GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pink"},
+{name:"iPhone 15 Pro Max",price:3200000,specs:"Zoom 5x · Titanio · A17 Pro",mem:"256GB",img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-max-natural"}
+]
 
-let productos = JSON.parse(localStorage.getItem("productos")) || [
-  {
-    nombre:"iPhone 13",
-    precio:2000000,
-    desc:"128GB",
-    img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-select-2021?wid=470&hei=556&fmt=png-alpha&.v=1629842709000",
-    ficha:`Pantalla Super Retina XDR de 6.1"\nChip A15 Bionic\nCámara dual 12MP\nGrabación 4K HDR`
-  },
-  {
-    nombre:"iPhone 14",
-    precio:2400000,
-    desc:"128GB",
-    img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-select-2022?wid=470&hei=556&fmt=png-alpha&.v=1660744988430",
-    ficha:`Pantalla Super Retina XDR de 6.1"\nChip A15 Bionic mejorado\nCámara dual 12MP\nDetección de accidentes`
-  },
-  {
-    nombre:"iPhone 15",
-    precio:3000000,
-    desc:"Nuevo",
-    img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-select-2023?wid=470&hei=556&fmt=png-alpha&.v=1692925209320",
-    ficha:`Pantalla Super Retina XDR de 6.1"\nChip A16 Bionic\nCámara principal 48MP\nPuerto USB‑C`
-  },
-  {
-    nombre:"iPhone 16 Pro",
-    precio:4000000,
-    desc:"256GB",
-    img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-16-pro-select-2024?wid=470&hei=556&fmt=png-alpha",
-    ficha:`Pantalla ProMotion de 6.1"\nChip A18 Pro\nCámara 48MP + teleobjetivo\nTitanio ultraligero`
-  },
-  {
-    nombre:"iPhone 16 Pro Max",
-    precio:4500000,
-    desc:"512GB",
-    img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-16-pro-max-select-2024?wid=470&hei=556&fmt=png-alpha",
-    ficha:`Pantalla ProMotion de 6.7"\nChip A18 Pro\nCámara 48MP + teleobjetivo 5x\nTitanio ultraligero`
-  }
-];
+let filtered=[...products]
+const grid=document.getElementById('grid')
 
-function guardar(){
-  localStorage.setItem("productos",JSON.stringify(productos));
+function renderProducts(){
+grid.innerHTML=""
+filtered.forEach(p=>{
+const div=document.createElement('div')
+div.className='card'
+div.innerHTML=`
+<img src="${p.img}.jpg" onclick="openModal('${p.name}','${p.specs}','${p.mem}')">
+<h3>${p.name}</h3>
+<div class="spec">${p.specs}</div>
+<div class="price">$${p.price.toLocaleString()}</div>
+<button onclick="add('${p.name}',${p.price})">Añadir al carrito</button>
+`
+grid.appendChild(div)
+})
 }
 
-function render(lista=productos){
-  const cont=document.getElementById("products");
-  cont.innerHTML="";
+renderProducts()
 
-  lista.forEach((p,i)=>{
-    cont.innerHTML+=`
-      <div class="card">
-        <img src="${p.img}" alt="${p.nombre}">
-        <h3>${p.nombre}</h3>
-        <p>${p.desc}</p>
-        <strong>$${p.precio.toLocaleString()}</strong>
-        <pre style="text-align:left;white-space:pre-wrap;">${p.ficha}</pre>
-        <br>
-        <button onclick="addToCart(${i})">Agregar al carrito</button>
-        ${admin ? `
-          <br>
-          <button onclick="editar(${i})">Editar</button>
-          <button onclick="eliminar(${i})">Eliminar</button>
-        `:""}
-      </div>
-    `;
-  });
-
-  if(admin){
-    cont.innerHTML+=`
-      <div class="card">
-        <h3>Agregar nuevo producto</h3>
-        <button onclick="agregar()">➕ Agregar</button>
-      </div>
-    `;
-  }
+function filterProducts(){
+const q=search.value.toLowerCase()
+filtered=products.filter(p=>p.name.toLowerCase().includes(q))
+renderProducts()
 }
 
-function login(){
-  const u=prompt("Usuario:");
-  const p=prompt("Contraseña:");
+let cart=[]
+function toggleCart(){document.getElementById('cart').classList.toggle('open')}
+function add(name,price){cart.push({name,price});renderCart()}
+function clearCart(){cart=[];renderCart()}
 
-  if(u===USER && p===PASS){
-    admin=true;
-    alert("Modo admin activado");
-    render();
-  }else{
-    alert("Datos incorrectos");
-  }
+function renderCart(){
+let html="",total=0
+cart.forEach(p=>{html+=`<div class='item'>${p.name} - $${p.price.toLocaleString()}</div>`;total+=p.price})
+list.innerHTML=html
+sum.innerText="Total: $"+total.toLocaleString()
+badge.style.display=cart.length?"block":"none"
+badge.innerText=cart.length
 }
 
-function editar(i){
-  const nuevoPrecio=prompt("Nuevo precio:",productos[i].precio);
-  const nuevaDesc=prompt("Nueva descripción:",productos[i].desc);
-  const nuevaImg=prompt("Nueva URL de imagen:",productos[i].img);
-
-  if(nuevoPrecio) productos[i].precio=parseInt(nuevoPrecio);
-  if(nuevaDesc) productos[i].desc=nuevaDesc;
-  if(nuevaImg) productos[i].img=nuevaImg;
-
-  guardar();
-  render();
+function whatsapp(){
+if(!cart.length)return alert('Carrito vacío')
+let msg='Hola quiero comprar:%0A',total=0
+cart.forEach(p=>{msg+=`- ${p.name} $${p.price.toLocaleString()}%0A`;total+=p.price})
+msg+=`%0ATotal: $${total.toLocaleString()}`
+window.open(`https://wa.me/573041368485?text=${msg}`)
 }
 
-function eliminar(i){
-  if(confirm("¿Seguro que deseas eliminar este producto?")){
-    productos.splice(i,1);
-    guardar();
-    render();
-  }
+function openModal(t,s,m){modal.classList.add('open');mTitle.innerText=t;mSpecs.innerText=s;mMem.innerText='Memorias disponibles: '+m}
+function closeModal(){modal.classList.remove('open')}
+
+function openLogin(){login.style.display='flex'}
+function closeLogin(){login.style.display='none'}
+
+function loginAdmin(){
+if(user.value===USER && pass.value===PASSWORD){alert('Bienvenido administrador');closeLogin()}
+else alert('Datos incorrectos')
 }
+</script>
 
-function agregar(){
-  const nombre=prompt("Nombre del producto:");
-  const precio=prompt("Precio:");
-  const desc=prompt("Descripción:");
-  const img=prompt("URL de la imagen:");
-  const ficha=prompt("Ficha técnica:");
-
-  if(nombre && precio && desc && img && ficha){
-    productos.push({nombre,precio:parseInt(precio),desc,img,ficha});
-    guardar();
-    render();
-  }else{
-    alert("Todos los campos son obligatorios");
-  }
-}
-
-function buscar(txt){
-  txt=txt.toLowerCase();
-  const filtrados=productos.filter(p=>p.nombre.toLowerCase().includes(txt));
-  render(filtrados);
-}
-
-function addToCart(i){
-  carrito.push(productos[i]);
-  mostrarCarrito();
-}
-
-function mostrarCarrito(){
-  const lista=document.getElementById("cartItems");
-  lista.innerHTML="";
-  let total=0;
-  carrito.forEach((p,idx)=>{
-    lista.innerHTML+=`<li>${p.nombre} - $${p.precio.toLocaleString()} <button onclick="removeFromCart(${idx})">❌</button></li>`;
-    total+=p.precio;
-  });
-  document.getElementById("cartTotal").innerText="Total: $"+total.toLocaleString();
-}
-
-function removeFromCart(i){
-  carrito.splice(i,1);
-  mostrarCarrito();
-}
-
-function checkout(){
-  if(carrito.length===
+</body>
+</html>
