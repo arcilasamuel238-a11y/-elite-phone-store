@@ -7,7 +7,7 @@
 
 <style>
 body{
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   margin:0;
   background:#f2f2f2;
 }
@@ -29,7 +29,7 @@ header{
 
 .products{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:15px;
   padding:20px;
 }
@@ -39,18 +39,30 @@ header{
   padding:15px;
   border-radius:10px;
   text-align:center;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
 
 .card img{
   width:100%;
+  height:auto;
+  max-width:100%;
   border-radius:10px;
   margin-bottom:10px;
+  object-fit:contain;
 }
 
 button{
   padding:8px 12px;
   margin-top:8px;
   cursor:pointer;
+  border:none;
+  border-radius:5px;
+  background:#000;
+  color:#fff;
+}
+
+button:hover{
+  background:#444;
 }
 
 #cart{
@@ -58,6 +70,7 @@ button{
   padding:15px;
   border-radius:10px;
   margin:20px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
 </style>
 </head>
@@ -76,6 +89,7 @@ button{
 <div id="cart">
   <h2>🛒 Carrito de compras</h2>
   <ul id="cartItems"></ul>
+  <strong id="cartTotal"></strong><br>
   <button onclick="checkout()">Finalizar compra</button>
 </div>
 
@@ -89,35 +103,35 @@ let carrito=[];
 let productos = JSON.parse(localStorage.getItem("productos")) || [
   {
     nombre:"iPhone 13",
-    precio:"2.000.000",
+    precio:2000000,
     desc:"128GB",
     img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-select-2021?wid=470&hei=556&fmt=png-alpha&.v=1629842709000",
     ficha:`Pantalla Super Retina XDR de 6.1"\nChip A15 Bionic\nCámara dual 12MP\nGrabación 4K HDR`
   },
   {
     nombre:"iPhone 14",
-    precio:"2.400.000",
+    precio:2400000,
     desc:"128GB",
     img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-14-select-2022?wid=470&hei=556&fmt=png-alpha&.v=1660744988430",
     ficha:`Pantalla Super Retina XDR de 6.1"\nChip A15 Bionic mejorado\nCámara dual 12MP\nDetección de accidentes`
   },
   {
     nombre:"iPhone 15",
-    precio:"3.000.000",
+    precio:3000000,
     desc:"Nuevo",
     img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-select-2023?wid=470&hei=556&fmt=png-alpha&.v=1692925209320",
     ficha:`Pantalla Super Retina XDR de 6.1"\nChip A16 Bionic\nCámara principal 48MP\nPuerto USB‑C`
   },
   {
     nombre:"iPhone 16 Pro",
-    precio:"4.000.000",
+    precio:4000000,
     desc:"256GB",
     img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-16-pro-select-2024?wid=470&hei=556&fmt=png-alpha",
     ficha:`Pantalla ProMotion de 6.1"\nChip A18 Pro\nCámara 48MP + teleobjetivo\nTitanio ultraligero`
   },
   {
     nombre:"iPhone 16 Pro Max",
-    precio:"4.500.000",
+    precio:4500000,
     desc:"512GB",
     img:"https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-16-pro-max-select-2024?wid=470&hei=556&fmt=png-alpha",
     ficha:`Pantalla ProMotion de 6.7"\nChip A18 Pro\nCámara 48MP + teleobjetivo 5x\nTitanio ultraligero`
@@ -138,7 +152,7 @@ function render(lista=productos){
         <img src="${p.img}" alt="${p.nombre}">
         <h3>${p.nombre}</h3>
         <p>${p.desc}</p>
-        <strong>$${p.precio}</strong>
+        <strong>$${p.precio.toLocaleString()}</strong>
         <pre style="text-align:left;white-space:pre-wrap;">${p.ficha}</pre>
         <br>
         <button onclick="addToCart(${i})">Agregar al carrito</button>
@@ -179,7 +193,7 @@ function editar(i){
   const nuevaDesc=prompt("Nueva descripción:",productos[i].desc);
   const nuevaImg=prompt("Nueva URL de imagen:",productos[i].img);
 
-  if(nuevoPrecio) productos[i].precio=nuevoPrecio;
+  if(nuevoPrecio) productos[i].precio=parseInt(nuevoPrecio);
   if(nuevaDesc) productos[i].desc=nuevaDesc;
   if(nuevaImg) productos[i].img=nuevaImg;
 
@@ -203,7 +217,7 @@ function agregar(){
   const ficha=prompt("Ficha técnica:");
 
   if(nombre && precio && desc && img && ficha){
-    productos.push({nombre,precio,desc,img,ficha});
+    productos.push({nombre,precio:parseInt(precio),desc,img,ficha});
     guardar();
     render();
   }else{
@@ -225,9 +239,12 @@ function addToCart(i){
 function mostrarCarrito(){
   const lista=document.getElementById("cartItems");
   lista.innerHTML="";
+  let total=0;
   carrito.forEach((p,idx)=>{
-    lista.innerHTML+=`<li>${p.nombre} - $${p.precio} <button onclick="removeFromCart(${idx})">❌</button></li>`;
+    lista.innerHTML+=`<li>${p.nombre} - $${p.precio.toLocaleString()} <button onclick="removeFromCart(${idx})">❌</button></li>`;
+    total+=p.precio;
   });
+  document.getElementById("cartTotal").innerText="Total: $"+total.toLocaleString();
 }
 
 function removeFromCart(i){
@@ -236,19 +253,4 @@ function removeFromCart(i){
 }
 
 function checkout(){
-  if(carrito.length===0){
-    alert("El carrito está vacío");
-    return;
-  }
-  let mensaje="Hola, quiero comprar:\n";
-  carrito.forEach(p=>{
-    mensaje+=`- ${p.nombre} (${p.desc}) $${p.precio}\n`;
-  });
-  const url=`https://wa.me/573001112233?text=${encodeURIComponent(mensaje)}`;
-  window.open(url,"_blank");
-}
-render();
-</script>
-
-</body>
-</html>
+  if(carrito.length===
