@@ -143,4 +143,137 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite Phone Store</title>
+
+<style>
+body{
+  font-family: Arial;
+  margin:0;
+  background:#f2f2f2;
+}
+
+header{
+  background:#000;
+  color:white;
+  padding:15px;
+  text-align:center;
+}
+
+.search{
+  width:90%;
+  max-width:400px;
+  padding:10px;
+  margin:15px auto;
+  display:block;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  padding:20px;
+}
+
+.card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+}
+
+button{
+  padding:8px 12px;
+  margin-top:8px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Elite Phone Store</h1>
+<button onclick="login()">Modo Admin</button>
+</header>
+
+<input class="search" placeholder="Buscar equipo..." onkeyup="buscar(this.value)">
+
+<div class="products" id="products"></div>
+
+<script>
+const USER="admin";
+const PASS="Heidy.011625";
+
+let admin=false;
+
+let productos = JSON.parse(localStorage.getItem("productos")) || [
+  {nombre:"iPhone 13", precio:"2.000.000", desc:"128GB"},
+  {nombre:"iPhone 15", precio:"3.000.000", desc:"Nuevo"},
+  {nombre:"Samsung S23", precio:"2.500.000", desc:"256GB"}
+];
+
+function guardar(){
+  localStorage.setItem("productos",JSON.stringify(productos));
+}
+
+function render(lista=productos){
+  const cont=document.getElementById("products");
+  cont.innerHTML="";
+
+  lista.forEach((p,i)=>{
+    cont.innerHTML+=`
+      <div class="card">
+        <h3>${p.nombre}</h3>
+        <p>${p.desc}</p>
+        <strong>$${p.precio}</strong>
+        ${admin ? `
+          <br>
+          <button onclick="editar(${i})">Editar</button>
+        `:""}
+      </div>
+    `;
+  });
+}
+
+function login(){
+  const u=prompt("Usuario:");
+  const p=prompt("Contraseña:");
+
+  if(u===USER && p===PASS){
+    admin=true;
+    alert("Modo admin activado");
+    render();
+  }else{
+    alert("Datos incorrectos");
+  }
+}
+
+function editar(i){
+  const nuevoPrecio=prompt("Nuevo precio:",productos[i].precio);
+  const nuevaDesc=prompt("Nueva descripción:",productos[i].desc);
+
+  if(nuevoPrecio) productos[i].precio=nuevoPrecio;
+  if(nuevaDesc) productos[i].desc=nuevaDesc;
+
+  guardar();
+  render();
+}
+
+function buscar(txt){
+  txt=txt.toLowerCase();
+  const filtrados=productos.filter(p=>p.nombre.toLowerCase().includes(txt));
+  render(filtrados);
+}
+
+render();
+</script>
+
+</body>
+</html>
+
 
