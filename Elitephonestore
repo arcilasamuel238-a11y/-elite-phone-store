@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Seguridad básica -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+
+  <title>Elite Phone Store</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    header {
+      background: #020617;
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #38bdf8;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .card {
+      background: #020617;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      border: 1px solid #1e293b;
+    }
+
+    button {
+      background: #38bdf8;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Carrito */
+    .cart {
+      position: fixed;
+      top: 0;
+      right: -350px;
+      width: 300px;
+      height: 100%;
+      background: #020617;
+      border-left: 2px solid #38bdf8;
+      padding: 20px;
+      transition: right .3s;
+      overflow-y: auto;
+    }
+
+    .cart.open { right: 0; }
+
+    .cart-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #38bdf8;
+      padding: 12px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    footer {
+      background: #020617;
+      text-align: center;
+      padding: 20px;
+      border-top: 2px solid #38bdf8;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Elite Phone Store</div>
+  <nav>
+    <a href="#">Inicio</a>
+    <a href="#">iPhone 17</a>
+    <a href="#">Accesorios</a>
+  </nav>
+</header>
+
+<div class="cart-btn" onclick="toggleCart()">🛒</div>
+
+<section class="hero">
+  <h1>La nueva generación en tus manos</h1>
+  <p>Línea completa iPhone 17 y accesorios premium</p>
+</section>
+
+<section class="productos">
+
+  <div class="card">
+    <h3>iPhone 17</h3>
+    <p>$3.999.000</p>
+    <button onclick="addToCart('iPhone 17', 3999000)">Agregar al carrito</button>
+  </div>
+
+  <div class="card">
+    <h3>iPhone 17 Pro</h3>
+    <p>$4.999.000</p>
+    <button onclick="addToCart('iPhone 17 Pro', 4999000)">Agregar al carrito</button>
+  </div>
+
+  <div class="card">
+    <h3>iPhone 17 Air</h3>
+    <p>$4.499.000</p>
+    <button onclick="addToCart('iPhone 17 Air', 4499000)">Agregar al carrito</button>
+  </div>
+
+</section>
+
+<!-- Panel del carrito -->
+<div id="cart" class="cart">
+  <h2>Carrito</h2>
+  <ul id="cart-items"></ul>
+  <h3 id="total">Total: $0</h3>
+</div>
+
+<footer>
+  <p>© 2026 Elite Phone Store</p>
+  <p>WhatsApp: 300 642 6264</p>
+</footer>
+
+<script>
+  let cart = [];
+
+  function toggleCart() {
+    document.getElementById("cart").classList.toggle("open");
+  }
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    renderCart();
+  }
+
+  function renderCart() {
+    const list = document.getElementById("cart-items");
+    const totalText = document.getElementById("total");
+
+    list.innerHTML = "";
+    let total = 0;
+
+    cart.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item.name + " - $" + item.price.toLocaleString();
+      list.appendChild(li);
+      total += item.price;
+    });
+
+    totalText.textContent = "Total: $" + total.toLocaleString();
+  }
+</script>
+
+</body>
+</html>
