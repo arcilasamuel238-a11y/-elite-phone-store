@@ -31,7 +31,25 @@ nav a:hover{color:#fff}
 .card{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:22px;padding:18px;transition:.25s}
 .card:hover{transform:translateY(-6px);border-color:#2a2a2a}
 
-.card img{width:100%;height:260px;object-fit:contain;border-radius:14px;background:#111;cursor:pointer}
+/* Ajuste de imágenes */
+.card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;   /* llena el espacio sin deformar */
+  border-radius: 14px;
+  background: #111;
+  cursor: pointer;
+  transition: transform .3s ease;
+}
+.card img:hover {
+  transform: scale(1.05);
+}
+@media (max-width: 600px) {
+  .card img {
+    height: 200px;   /* se ajusta en móviles */
+  }
+}
+
 .card h3{margin:12px 0 6px}
 .spec{font-size:13px;color:#aaa;line-height:1.4}
 .price{margin:10px 0;font-size:20px;font-weight:600;color:#22c55e}
@@ -132,57 +150,5 @@ filtered.forEach(p=>{
 const div=document.createElement('div')
 div.className='card'
 div.innerHTML=`
-<img src="${p.img}.jpg" onclick="openModal('${p.name}','${p.specs}','${p.mem}')">
+<img src="${p.img}" onclick="openModal('${p.name}','${p.specs}','${p.mem}')">
 <h3>${p.name}</h3>
-<div class="spec">${p.specs}</div>
-<div class="price">$${p.price.toLocaleString()}</div>
-<button onclick="add('${p.name}',${p.price})">Añadir al carrito</button>
-`
-grid.appendChild(div)
-})
-}
-
-renderProducts()
-
-function filterProducts(){
-const q=search.value.toLowerCase()
-filtered=products.filter(p=>p.name.toLowerCase().includes(q))
-renderProducts()
-}
-
-let cart=[]
-function toggleCart(){document.getElementById('cart').classList.toggle('open')}
-function add(name,price){cart.push({name,price});renderCart()}
-function clearCart(){cart=[];renderCart()}
-
-function renderCart(){
-let html="",total=0
-cart.forEach(p=>{html+=`<div class='item'>${p.name} - $${p.price.toLocaleString()}</div>`;total+=p.price})
-list.innerHTML=html
-sum.innerText="Total: $"+total.toLocaleString()
-badge.style.display=cart.length?"block":"none"
-badge.innerText=cart.length
-}
-
-function whatsapp(){
-if(!cart.length)return alert('Carrito vacío')
-let msg='Hola quiero comprar:%0A',total=0
-cart.forEach(p=>{msg+=`- ${p.name} $${p.price.toLocaleString()}%0A`;total+=p.price})
-msg+=`%0ATotal: $${total.toLocaleString()}`
-window.open(`https://wa.me/573041368485?text=${msg}`)
-}
-
-function openModal(t,s,m){modal.classList.add('open');mTitle.innerText=t;mSpecs.innerText=s;mMem.innerText='Memorias disponibles: '+m}
-function closeModal(){modal.classList.remove('open')}
-
-function openLogin(){login.style.display='flex'}
-function closeLogin(){login.style.display='none'}
-
-function loginAdmin(){
-if(user.value===USER && pass.value===PASSWORD){alert('Bienvenido administrador');closeLogin()}
-else alert('Datos incorrectos')
-}
-</script>
-
-</body>
-</html>
