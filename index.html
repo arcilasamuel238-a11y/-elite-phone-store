@@ -245,5 +245,11 @@ function filterProducts(){
   })
   renderProducts()
 }
+// Ejecutar búsqueda al presionar Enter
+document.getElementById('search').addEventListener('keyup', function(e){
+  if(e.key === 'Enter'){
+    filterProducts()
+  }
+})
 
         
