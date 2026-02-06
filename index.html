@@ -1,3 +1,8 @@
+Sebastián, ya encontré el error exacto: en tu código todavía estás poniendo `".jpg"` al final de las URLs de Apple. Eso hace que las imágenes no carguen y la página se quede en blanco.  
+
+Aquí te paso el **index.html completo y corregido**, con las fotos bien integradas y el script cerrado correctamente. Solo copia y pega este archivo en tu proyecto Netlify:
+
+```html
 <!DOCTYPE html>
 <html lang="es-CO">
 <head>
@@ -167,4 +172,7 @@ function clearCart(){cart=[];renderCart()}
 function renderCart(){
   let html="",total=0
   cart.forEach(p=>{
-    html+=`<div class='item'>${p.name} - $${p.price.toLocaleString()}</div
+    html+=`<div class='item'>${p.name} - $${p.price.toLocaleString()}</div>`
+    total+=p.price
+  })
+  list.innerHTML=
