@@ -1,154 +1,77 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elite Phone Store</title>
-  <style>
-    body {font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:0;background:#f5f5f5;color:#333;}
-    header {background:#000;color:#fff;padding:1rem;text-align:center;position:relative;}
-    nav {background:#111;color:#fff;display:flex;justify-content:center;gap:2rem;padding:1rem;}
-    nav button {background:#007aff;color:#fff;border:none;padding:0.6rem 1rem;border-radius:6px;cursor:pointer;}
-    nav button:hover {background:#005bb5;}
-    .search-bar {text-align:center;margin:1rem;}
-    .search-bar input {padding:0.6rem;width:60%;border-radius:6px;border:1px solid #ccc;}
-    .cart {position:absolute;right:20px;top:20px;background:#007aff;color:#fff;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;}
-    .catalog {display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:2rem;}
-    .product {border:1px solid #ddd;border-radius:10px;padding:1rem;background:#fff;transition:box-shadow 0.3s ease;}
-    .product:hover {box-shadow:0 6px 15px rgba(0,0,0,0.2);}
-    .product img {width:100%;height:auto;margin-bottom:1rem;cursor:pointer;}
-    .price {font-size:1.2rem;color:#007aff;font-weight:bold;}
-    .old-price {text-decoration:line-through;color:#888;margin-right:0.5rem;}
-    .specs {text-align:left;font-size:0.9rem;margin-top:1rem;display:none;}
-    .buy-btn {background:#007aff;color:#fff;border:none;padding:0.8rem 1.2rem;border-radius:6px;cursor:pointer;margin-top:1rem;}
-    .buy-btn:hover {background:#005bb5;}
-    footer {background:#000;color:#fff;text-align:center;padding:1rem;margin-top:2rem;}
-    #adminPanel {display:none;background:#eee;padding:1rem;margin:1rem;border-radius:8px;}
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Elite Phone Store</h1>
-    <p>Los últimos modelos de Apple con precios en COP</p>
-    <div class="cart" onclick="verCarrito()">🛒 Carrito (<span id="cartCount">0</span>)</div>
-  </header>
-
-  <!-- Barra de navegación -->
-  <nav>
-    <button onclick="filtrarCategoria('iPhone')">📱 Dispositivos</button>
-    <button onclick="filtrarCategoria('Accesorios')">🎧 Accesorios</button>
-    <button onclick="filtrarCategoria('Protectores')">🛡️ Protectores</button>
-  </nav>
-
-  <!-- Barra de búsqueda -->
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Buscar producto..." onkeyup="buscarProducto()">
+<section class="catalog" id="catalogo">
+  <!-- iPhone 13 / Pro / Pro Max -->
+  <div class="product" id="iPhone 13" data-category="iPhone">
+    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13.jpg" alt="iPhone 13" onclick="toggleSpecs(this)">
+    <h2>iPhone 13</h2>
+    <p class="price">COP $2,800,000</p>
+    <button class="buy-btn" onclick="agregarCarrito('iPhone 13')">Comprar</button>
+    <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: Dual 12MP</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3240 mAh</p></div>
+  </div>
+  <div class="product" id="iPhone 13 Pro" data-category="iPhone">
+    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro.jpg" alt="iPhone 13 Pro" onclick="toggleSpecs(this)">
+    <h2>iPhone 13 Pro</h2>
+    <p class="price">COP $3,500,000</p>
+    <button class="buy-btn" onclick="agregarCarrito('iPhone 13 Pro')">Comprar</button>
+    <div class="specs"><p>📱 Pantalla: 6.1" ProMotion OLED</p><p>📸 Cámara: Triple 12MP + LiDAR</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3095 mAh</p></div>
+  </div>
+  <div class="product" id="iPhone 13 Pro Max" data-category="iPhone">
+    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max.jpg" alt="iPhone 13 Pro Max" onclick="toggleSpecs(this)">
+    <h2>iPhone 13 Pro Max</h2>
+    <p class="price">COP $3,900,000</p>
+    <button class="buy-btn" onclick="agregarCarrito('iPhone 13 Pro Max')">Comprar</button>
+    <div class="specs"><p>📱 Pantalla: 6.7" ProMotion OLED</p><p>📸 Cámara: Triple 12MP + LiDAR</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 4352 mAh</p></div>
   </div>
 
-  <!-- Panel de administración oculto -->
-  <section id="adminPanel">
-    <h3>Modo Administrador</h3>
-    <p>Cambia el precio de un modelo:</p>
-    <input type="text" id="modelo" placeholder="Ej: iPhone 15 Pro Max">
-    <input type="number" id="nuevoPrecio" placeholder="Nuevo precio COP">
-    <button onclick="cambiarPrecio()">Actualizar Precio</button>
-  </section>
+  <!-- iPhone 14 / Pro / Pro Max -->
+  <div class="product" id="iPhone 14" data-category="iPhone">
+    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14.jpg" alt="iPhone 14" onclick="toggleSpecs(this)">
+    <h2>iPhone 14</h2>
+    <p class="price">COP $3,200,000</p>
+    <button class="buy-btn" onclick="agregarCarrito('iPhone 14')">Comprar</button>
+    <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: Dual 12MP</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3279 mAh</p></div>
+  </div>
+  <div class="product" id="iPhone 14 Pro" data-category="iPhone">
+    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14-pro.jpg" alt="iPhone 14 Pro" onclick="toggleSpecs(this)">
+    <h2>iPhone 14 Pro</h2>
+    <p class="price">COP $4,200,000</p>
+    <button class="buy-btn" onclick="agregarCarrito('iPhone 14 Pro')">Comprar</button>
+    <div class="specs"><p>📱 Pantalla: 6.1" ProMotion OLED</p><p>📸 Cámara: Triple 48MP</p><p>⚡ Chip: A16 Bionic</p><p>🔋 Batería: 3200 mAh</p></div>
+  </div>
+  <div class="product" id="iPhone 14 Pro Max" data-category="iPhone">
+    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14-pro-max.jpg" alt="iPhone 14 Pro Max" onclick="toggleSpecs(this)">
+    <h2>iPhone 14 Pro Max</h2>
+    <p class="price">COP $4,800,000</p>
+    <button class="buy-btn" onclick="agregarCarrito('iPhone 14 Pro Max')">Comprar</button>
+    <div class="specs"><p>📱 Pantalla: 6.7" ProMotion OLED</p><p>📸 Cámara: Triple 48MP</p><p>⚡ Chip: A16 Bionic</p><p>🔋 Batería: 4323 mAh</p></div>
+  </div>
 
-  <main>
-    <section class="catalog" id="catalogo">
-      <!-- Ejemplo iPhone -->
-      <div class="product" id="iPhone 15 Pro" data-category="iPhone">
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15-pro.jpg" alt="iPhone 15 Pro" onclick="toggleSpecs(this)">
-        <h2>iPhone 15 Pro</h2>
-        <p class="price"><span class="old-price">COP $4,500,000</span> COP $3,800,000</p>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 15 Pro')">Comprar</button>
-        <div class="specs">
-          <p>📱 Pantalla: 6.1" ProMotion OLED</p>
-          <p>📸 Cámara: Triple 48MP</p>
-          <p>⚡ Chip: A17 Pro</p>
-          <p>🔋 Batería: 3500 mAh</p>
-        </div>
-      </div>
+  <!-- iPhone 15 / Pro / Pro Max -->
+  <div class="product" id="iPhone 15" data-category="iPhone">
+    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15.jpg" alt="iPhone 15" onclick="toggleSpecs(this)">
+    <h2>iPhone 15</h2>
+    <p class="price">COP $3,800,000</p>
+    <button class="buy-btn" onclick="agregarCarrito('iPhone 15')">Comprar</button>
+    <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: 48MP + 12MP</p><p>⚡ Chip: A16 Bionic</p><p>🔋 Batería: 3349 mAh</p></div>
+  </div>
+  <div class="product" id="iPhone 15 Pro" data-category="iPhone">
+    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15-pro.jpg" alt="iPhone 15 Pro" onclick="toggleSpecs(this)">
+    <h2>iPhone 15 Pro</h2>
+    <p class="price">COP $4,500,000</p>
+    <button class="buy-btn" onclick="agregarCarrito('iPhone 15 Pro')">Comprar</button>
+    <div class="specs"><p>📱 Pantalla: 6.1" ProMotion OLED</p><p>📸 Cámara: Triple 48MP</p><p>⚡ Chip: A17 Pro</p><p>🔋 Batería: 3500 mAh</p></div>
+  </div>
+  <div class="product" id="iPhone 15 Pro Max" data-category="iPhone">
+    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15-pro-max.jpg" alt="iPhone 15 Pro Max" onclick="toggleSpecs(this)">
+    <h2>iPhone 15 Pro Max</h2>
+    <p class="price">COP $5,000,000</p>
+    <button class="buy-btn" onclick="agregarCarrito('iPhone 15 Pro Max')">Comprar</button>
+    <div class="specs"><p>📱 Pantalla: 6.7" ProMotion OLED</p><p>📸 Cámara: Triple 48MP</p><p>⚡ Chip: A17 Pro</p><p>🔋 Batería: 4500 mAh</p></div>
+  </div>
 
-      <!-- AirPods -->
-      <div class="product" id="AirPods 4" data-category="Accesorios">
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-4.jpg" alt="AirPods 4" onclick="toggleSpecs(this)">
-        <h2>AirPods 4</h2>
-        <p class="price">COP $900,000</p>
-        <button class="buy-btn" onclick="agregarCarrito('AirPods 4')">Comprar</button>
-        <div class="specs">
-          <p>🎧 Sonido: Alta fidelidad</p>
-          <p>🔋 Batería: 6 horas</p>
-          <p>⚡ Chip: H2</p>
-        </div>
-      </div>
-
-      <!-- Cargador -->
-      <div class="product" id="Cargador 20W" data-category="Accesorios">
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-charger-20w.jpg" alt="Cargador 20W" onclick="toggleSpecs(this)">
-        <h2>Cargador 20W</h2>
-        <p class="price">COP $120,000</p>
-        <button class="buy-btn" onclick="agregarCarrito('Cargador 20W')">Comprar</button>
-        <div class="specs">
-          <p>⚡ Potencia: 20W</p>
-          <p>🔌 Puerto: USB-C</p>
-          <p>📱 Compatibilidad: iPhone y AirPods</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 Elite Phone Store | Todos los derechos reservados</p>
-  </footer>
-
-  <script>
-    let carrito = [];
-
-    function agregarCarrito(modelo) {
-      carrito.push(modelo);
-      document.getElementById("cartCount").textContent = carrito.length;
-      alert(modelo + " agregado al carrito.");
-    }
-
-    function verCarrito() {
-      alert("Carrito: " + carrito.join(", "));
-    }
-
-    function toggleSpecs(img) {
-      const specs = img.parentElement.querySelector(".specs");
-      specs.style.display = specs.style.display === "block" ? "none" : "block";
-    }
-
-    function cambiarPrecio() {
-      const modelo = document.getElementById("modelo").value;
-      const nuevoPrecio = document.getElementById("nuevoPrecio").value;
-      const producto = document.getElementById(modelo);
-      if(producto && nuevoPrecio) {
-        producto.querySelector(".price").textContent = "COP $" + parseInt(nuevoPrecio).toLocaleString("es-CO");
-        alert("Precio actualizado para " + modelo);
-      }
-    }
-
-    function buscarProducto() {
-      const input = document.getElementById("searchInput").value.toLowerCase();
-      const productos = document.querySelectorAll(".product");
-      productos.forEach(p => {
-        const nombre = p.querySelector("h2").textContent.toLowerCase();
-        p.style.display = nombre.includes(input) ? "block" : "none";
-      });
-    }
-
-    function filtrarCategoria(cat) {
-      const productos = document.querySelectorAll(".product");
-      productos.forEach(p => {
-        const categoria = p.getAttribute("data-category");
-        p.style.display = (categoria === cat) ? "block" : "none";
-      });
-    }
-
-    // Login admin
-    const usuarioAdmin = "admin";
-    const claveAdmin = "elite2026";
-    const accesoUsuario = prompt("Usuario administrador:");
-    const
+  <!-- iPhone 16 / Pro / Pro Max -->
+  <div class="product" id="iPhone 16" data-category="iPhone">
+    <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-16.jpg" alt="iPhone 16" onclick="toggleSpecs(this)">
+    <h2>iPhone 16</h2>
+    <p class="price">COP $4,200,000</p>
+    <button class="buy-btn" onclick="agregarCarrito('iPhone 16')">Comprar</button>
+    <div class="specs"><p>📱 Pantalla: 6.3" Super Retina XDR</p><p>📸 Cámara: 48MP + 12MP ultra
