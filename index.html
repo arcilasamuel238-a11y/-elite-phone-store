@@ -56,9 +56,17 @@
 
   <main>
     <section class="catalog" id="catalogo">
-      <!-- iPhone 13 / Pro / Pro Max -->
-      <!-- ... (bloques completos de iPhone 13, 14, 15, 16, 17 en normal, Pro y Pro Max) ... -->
-
+      <!-- iPhones 13–17 en normal, Pro y Pro Max -->
+      <!-- Ejemplo: iPhone 13 -->
+      <div class="product" id="iPhone 13" data-category="iPhone">
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13.jpg" alt="iPhone 13" onclick="toggleSpecs(this)">
+        <h2>iPhone 13</h2>
+        <p class="price">COP $2,800,000</p>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 13')">Comprar</button>
+        <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: Dual 12MP</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3240 mAh</p></div>
+      </div>
+      <!-- Repite la misma estructura para iPhone 13 Pro, 13 Pro Max, 14, 14 Pro, 14 Pro Max, 15, 15 Pro, 15 Pro Max, 16, 16 Pro, 16 Pro Max, 17, 17 Pro, 17 Pro Max -->
+      
       <!-- AirPods -->
       <div class="product" id="AirPods 4" data-category="Accesorios">
         <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-4.jpg" alt="AirPods 4" onclick="toggleSpecs(this)">
@@ -94,37 +102,4 @@
         <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-charger-20w.jpg" alt="Cargador 20W" onclick="toggleSpecs(this)">
         <h2>Cargador 20W</h2>
         <p class="price">COP $120,000</p>
-        <button class="buy-btn" onclick="agregarCarrito('Cargador 20W')">Comprar</button>
-        <div class="specs"><p>⚡ Potencia: 20W</p><p>🔌 Puerto: USB-C</p><p>📱 Compatibilidad: iPhone y AirPods</p></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 Elite Phone Store | Todos los derechos reservados</p>
-  </footer>
-
-  <script>
-    let carrito = [];
-
-    function agregarCarrito(modelo) {
-      carrito.push(modelo);
-      document.getElementById("cartCount").textContent = carrito.length;
-      alert(modelo + " agregado al carrito.");
-    }
-
-    function verCarrito() {
-      alert("Carrito: " + carrito.join(", "));
-    }
-
-    function toggleSpecs(img) {
-      const specs = img.parentElement.querySelector(".specs");
-      specs.style.display = specs.style.display === "block" ? "none" : "block";
-    }
-
-    function cambiarPrecio() {
-      const modelo = document.getElementById("modelo").value;
-      const nuevoPrecio = document.getElementById("nuevoPrecio").value;
-      const producto = document.getElementById(modelo);
-      if(producto && nuevoPrecio) {
-        producto.querySelector(".price").text
+        <button class="buy-btn" onclick="agregarCarrito('Cargador 20W')">Comprar</
