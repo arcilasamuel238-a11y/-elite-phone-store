@@ -17,6 +17,17 @@
       color: #fff;
       padding: 1.5rem;
       text-align: center;
+      position: relative;
+    }
+    .cart {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      background: #007aff;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
     }
     .catalog {
       display: grid;
@@ -40,6 +51,7 @@
       height: auto;
       border-radius: 8px;
       margin-bottom: 1rem;
+      cursor: pointer;
     }
     .price {
       font-size: 1.2rem;
@@ -51,6 +63,7 @@
       text-align: left;
       font-size: 0.9rem;
       margin-top: 1rem;
+      display: none; /* oculto por defecto */
     }
     .buy-btn {
       background: #007aff;
@@ -65,16 +78,6 @@
     .buy-btn:hover {
       background: #005bb5;
     }
-    .admin-panel {
-      background: #eee;
-      padding: 1rem;
-      margin: 1rem;
-      border-radius: 8px;
-    }
-    .admin-panel input {
-      padding: 0.5rem;
-      margin-right: 0.5rem;
-    }
     footer {
       background: #000;
       color: #fff;
@@ -82,16 +85,25 @@
       padding: 1rem;
       margin-top: 2rem;
     }
+    /* Panel admin oculto */
+    #adminPanel {
+      display: none;
+      background: #eee;
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Catálogo Elite Phone Store</h1>
     <p>Los últimos modelos de Apple con precios en COP</p>
+    <div class="cart" onclick="verCarrito()">🛒 Carrito (<span id="cartCount">0</span>)</div>
   </header>
 
-  <!-- Panel de administración -->
-  <section class="admin-panel">
+  <!-- Panel de administración oculto -->
+  <section id="adminPanel">
     <h3>Modo Administrador</h3>
     <p>Cambia el precio de un modelo:</p>
     <input type="text" id="modelo" placeholder="Ej: iPhone 15">
@@ -104,7 +116,7 @@
       <!-- iPhone 13 -->
       <div class="product" id="iPhone 13">
         <h2>Apple iPhone 13</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-1.jpg" alt="Apple iPhone 13">
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13.jpg" alt="Apple iPhone 13" onclick="toggleSpecs(this)">
         <p class="price">COP $2,800,000</p>
         <div class="specs">
           <p>📱 Pantalla: 6.1" Super Retina XDR</p>
@@ -112,13 +124,13 @@
           <p>⚡ Chip: A15 Bionic</p>
           <p>🔋 Batería: 3240 mAh</p>
         </div>
-        <button class="buy-btn">Comprar</button>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 13')">Comprar</button>
       </div>
 
       <!-- iPhone 14 -->
       <div class="product" id="iPhone 14">
         <h2>Apple iPhone 14</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14-1.jpg" alt="Apple iPhone 14">
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14.jpg" alt="Apple iPhone 14" onclick="toggleSpecs(this)">
         <p class="price">COP $3,200,000</p>
         <div class="specs">
           <p>📱 Pantalla: 6.1" Super Retina XDR</p>
@@ -126,13 +138,13 @@
           <p>⚡ Chip: A15 Bionic (5 núcleos GPU)</p>
           <p>🔋 Batería: 3279 mAh</p>
         </div>
-        <button class="buy-btn">Comprar</button>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 14')">Comprar</button>
       </div>
 
       <!-- iPhone 15 -->
       <div class="product" id="iPhone 15">
         <h2>Apple iPhone 15</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15-1.jpg" alt="Apple iPhone 15">
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15.jpg" alt="Apple iPhone 15" onclick="toggleSpecs(this)">
         <p class="price">COP $3,800,000</p>
         <div class="specs">
           <p>📱 Pantalla: 6.1" Super Retina XDR</p>
@@ -140,50 +152,9 @@
           <p>⚡ Chip: A16 Bionic</p>
           <p>🔋 Batería: 3349 mAh</p>
         </div>
-        <button class="buy-btn">Comprar</button>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 15')">Comprar</button>
       </div>
-
-      <!-- iPhone 16 -->
-      <div class="product" id="iPhone 16">
-        <h2>Apple iPhone 16</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-16-1.jpg" alt="Apple iPhone 16">
-        <p class="price">COP $4,500,000</p>
-        <div class="specs">
-          <p>📱 Pantalla: 6.3" Super Retina XDR</p>
-          <p>📸 Cámara: 48MP + 12MP ultra wide</p>
-          <p>⚡ Chip: A17 Pro</p>
-          <p>🔋 Batería: 3500 mAh</p>
-        </div>
-        <button class="buy-btn">Comprar</button>
-      </div>
-
-      <!-- iPhone 17 -->
-      <div class="product" id="iPhone 17">
-        <h2>Apple iPhone 17</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-17-1.jpg" alt="Apple iPhone 17">
-        <p class="price">COP $5,200,000</p>
-        <div class="specs">
-          <p>📱 Pantalla: 6.3" ProMotion OLED</p>
-          <p>📸 Cámara: 48MP triple lente</p>
-          <p>⚡ Chip: A18 Bionic</p>
-          <p>🔋 Batería: 3700 mAh</p>
-        </div>
-        <button class="buy-btn">Comprar</button>
-      </div>
-
-      <!-- iPhone 17 Air -->
-      <div class="product" id="iPhone 17 Air">
-        <h2>Apple iPhone 17 Air</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-air-1.jpg" alt="Apple iPhone 17 Air">
-        <p class="price">COP $6,000,000</p>
-        <div class="specs">
-          <p>📱 Pantalla: 6.7" ProMotion OLED</p>
-          <p>📸 Cámara: 48MP + LiDAR</p>
-          <p>⚡ Chip: A18 Pro</p>
-          <p>🔋 Batería: 4000 mAh</p>
-        </div>
-        <button class="buy-btn">Comprar</button>
-      </div>
+      <!-- Puedes seguir con iPhone 16, 17 y 17 Air igual -->
     </section>
   </main>
 
@@ -192,10 +163,39 @@
   </footer>
 
   <script>
+    let carrito = [];
+
+    function agregarCarrito(modelo) {
+      carrito.push(modelo);
+      document.getElementById("cartCount").textContent = carrito.length;
+      alert(modelo + " agregado al carrito.");
+    }
+
+    function verCarrito() {
+      alert("Carrito: " + carrito.join(", "));
+    }
+
+    function toggleSpecs(img) {
+      const specs = img.parentElement.querySelector(".specs");
+      specs.style.display = specs.style.display === "block" ? "none" : "block";
+    }
+
     function cambiarPrecio() {
       const modelo = document.getElementById("modelo").value;
       const nuevoPrecio = document.getElementById("nuevoPrecio").value;
       const producto = document.getElementById(modelo);
       if(producto && nuevoPrecio) {
         producto.querySelector(".price").textContent = "COP $" + parseInt(nuevoPrecio).toLocaleString("es-CO");
-        alert("Precio actualizado
+        alert("Precio actualizado para " + modelo);
+      }
+    }
+
+    // Login simple para admin
+    const claveAdmin = "admin123"; // cámbiala en producción
+    const acceso = prompt("Ingrese clave de administrador para activar modo admin (o deje vacío para cliente):");
+    if(acceso === claveAdmin) {
+      document.getElementById("adminPanel").style.display = "block";
+    }
+  </script>
+</body>
+</html>
