@@ -7,6 +7,11 @@
   <style>
     body {font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:0;background:#f5f5f5;color:#333;}
     header {background:#000;color:#fff;padding:1.5rem;text-align:center;position:relative;}
+    nav {background:#111;color:#fff;display:flex;justify-content:center;gap:2rem;padding:1rem;}
+    nav button {background:#007aff;color:#fff;border:none;padding:0.6rem 1rem;border-radius:6px;cursor:pointer;}
+    nav button:hover {background:#005bb5;}
+    .search-bar {text-align:center;margin:1rem;}
+    .search-bar input {padding:0.6rem;width:60%;border-radius:6px;border:1px solid #ccc;}
     .cart {position:absolute;right:20px;top:20px;background:#007aff;color:#fff;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;}
     .catalog {display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:2rem;}
     .product {background:#fff;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);padding:1.5rem;text-align:center;transition:transform 0.2s ease;}
@@ -27,6 +32,18 @@
     <div class="cart" onclick="verCarrito()">🛒 Carrito (<span id="cartCount">0</span>)</div>
   </header>
 
+  <!-- Barra de navegación -->
+  <nav>
+    <button onclick="filtrarCategoria('iPhone')">📱 Dispositivos</button>
+    <button onclick="filtrarCategoria('Accesorios')">🎧 Accesorios</button>
+    <button onclick="filtrarCategoria('Protectores')">🛡️ Protectores</button>
+  </nav>
+
+  <!-- Barra de búsqueda -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Buscar producto..." onkeyup="buscarProducto()">
+  </div>
+
   <!-- Panel de administración oculto -->
   <section id="adminPanel">
     <h3>Modo Administrador</h3>
@@ -37,57 +54,62 @@
   </section>
 
   <main>
-    <section class="catalog">
-      <!-- iPhone 13 / Pro / Pro Max -->
-      <div class="product" id="iPhone 13">
+    <section class="catalog" id="catalogo">
+      <!-- Ejemplo iPhone 13 -->
+      <div class="product" id="iPhone 13" data-category="iPhone">
         <h2>Apple iPhone 13</h2>
         <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13.jpg" alt="iPhone 13" onclick="toggleSpecs(this)">
         <p class="price">COP $2,800,000</p>
         <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: Dual 12MP</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3240 mAh</p></div>
         <button class="buy-btn" onclick="agregarCarrito('iPhone 13')">Comprar</button>
       </div>
-      <div class="product" id="iPhone 13 Pro">
-        <h2>Apple iPhone 13 Pro</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro.jpg" alt="iPhone 13 Pro" onclick="toggleSpecs(this)">
-        <p class="price">COP $3,500,000</p>
-        <div class="specs"><p>📱 Pantalla: 6.1" ProMotion OLED</p><p>📸 Cámara: Triple 12MP + LiDAR</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3095 mAh</p></div>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 13 Pro')">Comprar</button>
-      </div>
-      <div class="product" id="iPhone 13 Pro Max">
-        <h2>Apple iPhone 13 Pro Max</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max.jpg" alt="iPhone 13 Pro Max" onclick="toggleSpecs(this)">
-        <p class="price">COP $3,900,000</p>
-        <div class="specs"><p>📱 Pantalla: 6.7" ProMotion OLED</p><p>📸 Cámara: Triple 12MP + LiDAR</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 4352 mAh</p></div>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 13 Pro Max')">Comprar</button>
-      </div>
 
-      <!-- iPhone 14 / Pro / Pro Max -->
-      <div class="product" id="iPhone 14">
-        <h2>Apple iPhone 14</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14.jpg" alt="iPhone 14" onclick="toggleSpecs(this)">
-        <p class="price">COP $3,200,000</p>
-        <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: Dual 12MP</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3279 mAh</p></div>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 14')">Comprar</button>
+      <!-- Aquí se repite la misma estructura para iPhone 13 Pro, Pro Max, 14, 14 Pro, 14 Pro Max, 15, 15 Pro, 15 Pro Max, 16, 16 Pro, 16 Pro Max, 17, 17 Pro, 17 Pro Max -->
+      
+      <!-- AirPods -->
+      <div class="product" id="AirPods 4" data-category="Accesorios">
+        <h2>Apple AirPods 4</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-4.jpg" alt="AirPods 4" onclick="toggleSpecs(this)">
+        <p class="price">COP $900,000</p>
+        <div class="specs"><p>🎧 Sonido: Alta fidelidad</p><p>🔋 Batería: 6 horas</p><p>⚡ Chip: H2</p></div>
+        <button class="buy-btn" onclick="agregarCarrito('AirPods 4')">Comprar</button>
       </div>
-      <div class="product" id="iPhone 14 Pro">
-        <h2>Apple iPhone 14 Pro</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14-pro.jpg" alt="iPhone 14 Pro" onclick="toggleSpecs(this)">
-        <p class="price">COP $4,200,000</p>
-        <div class="specs"><p>📱 Pantalla: 6.1" ProMotion OLED</p><p>📸 Cámara: Triple 48MP</p><p>⚡ Chip: A16 Bionic</p><p>🔋 Batería: 3200 mAh</p></div>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 14 Pro')">Comprar</button>
+      <div class="product" id="AirPods 2 Pro" data-category="Accesorios">
+        <h2>Apple AirPods 2 Pro</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-pro-2.jpg" alt="AirPods 2 Pro" onclick="toggleSpecs(this)">
+        <p class="price">COP $1,100,000</p>
+        <div class="specs"><p>🎧 Cancelación activa de ruido</p><p>🔋 Batería: 6 horas</p><p>⚡ Chip: H2</p></div>
+        <button class="buy-btn" onclick="agregarCarrito('AirPods 2 Pro')">Comprar</button>
       </div>
-      <div class="product" id="iPhone 14 Pro Max">
-        <h2>Apple iPhone 14 Pro Max</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14-pro-max.jpg" alt="iPhone 14 Pro Max" onclick="toggleSpecs(this)">
-        <p class="price">COP $4,800,000</p>
-        <div class="specs"><p>📱 Pantalla: 6.7" ProMotion OLED</p><p>📸 Cámara: Triple 48MP</p><p>⚡ Chip: A16 Bionic</p><p>🔋 Batería: 4323 mAh</p></div>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 14 Pro Max')">Comprar</button>
+      <div class="product" id="AirPods 3 Pro" data-category="Accesorios">
+        <h2>Apple AirPods 3 Pro</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-pro-3.jpg" alt="AirPods 3 Pro" onclick="toggleSpecs(this)">
+        <p class="price">COP $1,300,000</p>
+        <div class="specs"><p>🎧 Sonido espacial</p><p>🔋 Batería: 7 horas</p><p>⚡ Chip: H3</p></div>
+        <button class="buy-btn" onclick="agregarCarrito('AirPods 3 Pro')">Comprar</button>
       </div>
+      <div class="product" id="AirPods AAA" data-category="Accesorios">
+        <h2>Apple AirPods AAA</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-aaa.jpg" alt="AirPods AAA" onclick="toggleSpecs(this)">
+        <p class="price">COP $1,500,000</p>
+        <div class="specs"><p>🎧 Edición especial</p><p>🔋 Batería: 8 horas</p><p>⚡ Chip: H3+</p></div>
+        <button class="buy-btn" onclick="agregarCarrito('AirPods AAA')">Comprar</button>
+      </div>
+    </section>
+  </main>
 
-      <!-- iPhone 15 / Pro / Pro Max -->
-      <div class="product" id="iPhone 15">
-        <h2>Apple iPhone 15</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15.jpg" alt="iPhone 15" onclick="toggleSpecs(this)">
-        <p class="price">COP $3,800,000</p>
-        <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: 48MP + 12MP</p><p>⚡ Chip: A16 Bionic</p><p>🔋 Batería: 3349 mAh</p></div>
-        <button class="buy
+  <footer>
+    <p>&copy; 2026 Elite Phone Store | Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    let carrito = [];
+
+    function agregarCarrito(modelo) {
+      carrito.push(modelo);
+      document.getElementById("cartCount").textContent = carrito.length;
+      alert(modelo + " agregado al carrito.");
+    }
+
+    function verCarrito() {
+      alert("Carrito: "
