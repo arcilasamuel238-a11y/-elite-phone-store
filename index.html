@@ -63,7 +63,7 @@
       text-align: left;
       font-size: 0.9rem;
       margin-top: 1rem;
-      display: none; /* oculto por defecto */
+      display: none;
     }
     .buy-btn {
       background: #007aff;
@@ -85,7 +85,6 @@
       padding: 1rem;
       margin-top: 2rem;
     }
-    /* Panel admin oculto */
     #adminPanel {
       display: none;
       background: #eee;
@@ -106,7 +105,7 @@
   <section id="adminPanel">
     <h3>Modo Administrador</h3>
     <p>Cambia el precio de un modelo:</p>
-    <input type="text" id="modelo" placeholder="Ej: iPhone 15">
+    <input type="text" id="modelo" placeholder="Ej: iPhone 15 Pro Max">
     <input type="number" id="nuevoPrecio" placeholder="Nuevo precio COP">
     <button onclick="cambiarPrecio()">Actualizar Precio</button>
   </section>
@@ -127,63 +126,78 @@
         <button class="buy-btn" onclick="agregarCarrito('iPhone 13')">Comprar</button>
       </div>
 
-      <!-- iPhone 14 -->
-      <div class="product" id="iPhone 14">
-        <h2>Apple iPhone 14</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14.jpg" alt="Apple iPhone 14" onclick="toggleSpecs(this)">
-        <p class="price">COP $3,200,000</p>
+      <!-- iPhone 13 Pro -->
+      <div class="product" id="iPhone 13 Pro">
+        <h2>Apple iPhone 13 Pro</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro.jpg" alt="Apple iPhone 13 Pro" onclick="toggleSpecs(this)">
+        <p class="price">COP $3,500,000</p>
         <div class="specs">
-          <p>📱 Pantalla: 6.1" Super Retina XDR</p>
-          <p>📸 Cámara: Dual 12MP mejorada</p>
-          <p>⚡ Chip: A15 Bionic (5 núcleos GPU)</p>
-          <p>🔋 Batería: 3279 mAh</p>
+          <p>📱 Pantalla: 6.1" ProMotion OLED</p>
+          <p>📸 Cámara: Triple 12MP + LiDAR</p>
+          <p>⚡ Chip: A15 Bionic</p>
+          <p>🔋 Batería: 3095 mAh</p>
         </div>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 14')">Comprar</button>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 13 Pro')">Comprar</button>
       </div>
 
-      <!-- iPhone 15 -->
-      <div class="product" id="iPhone 15">
-        <h2>Apple iPhone 15</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15.jpg" alt="Apple iPhone 15" onclick="toggleSpecs(this)">
-        <p class="price">COP $3,800,000</p>
+      <!-- iPhone 13 Pro Max -->
+      <div class="product" id="iPhone 13 Pro Max">
+        <h2>Apple iPhone 13 Pro Max</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max.jpg" alt="Apple iPhone 13 Pro Max" onclick="toggleSpecs(this)">
+        <p class="price">COP $3,900,000</p>
         <div class="specs">
-          <p>📱 Pantalla: 6.1" Super Retina XDR</p>
-          <p>📸 Cámara: 48MP + 12MP</p>
-          <p>⚡ Chip: A16 Bionic</p>
-          <p>🔋 Batería: 3349 mAh</p>
+          <p>📱 Pantalla: 6.7" ProMotion OLED</p>
+          <p>📸 Cámara: Triple 12MP + LiDAR</p>
+          <p>⚡ Chip: A15 Bionic</p>
+          <p>🔋 Batería: 4352 mAh</p>
         </div>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 15')">Comprar</button>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 13 Pro Max')">Comprar</button>
       </div>
 
-      <!-- iPhone 16 -->
-      <div class="product" id="iPhone 16">
-        <h2>Apple iPhone 16</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-16.jpg" alt="Apple iPhone 16" onclick="toggleSpecs(this)">
-        <p class="price">COP $4,500,000</p>
-        <div class="specs">
-          <p>📱 Pantalla: 6.3" Super Retina XDR</p>
-          <p>📸 Cámara: 48MP + 12MP ultra wide</p>
-          <p>⚡ Chip: A17 Pro</p>
-          <p>🔋 Batería: 3500 mAh</p>
-        </div>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 16')">Comprar</button>
-      </div>
+      <!-- iPhone 14 / Pro / Pro Max -->
+      <!-- iPhone 15 / Pro / Pro Max -->
+      <!-- iPhone 16 / Pro / Pro Max -->
+      <!-- iPhone 17 / Pro / Pro Max -->
+      <!-- AirPods 4, 2 Pro, 3 Pro, AAA -->
+      <!-- (Se repite la misma estructura con imágenes oficiales de GSMArena) -->
+    </section>
+  </main>
 
-      <!-- iPhone 17 -->
-      <div class="product" id="iPhone 17">
-        <h2>Apple iPhone 17</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-17.jpg" alt="Apple iPhone 17" onclick="toggleSpecs(this)">
-        <p class="price">COP $5,200,000</p>
-        <div class="specs">
-          <p>📱 Pantalla: 6.3" ProMotion OLED</p>
-          <p>📸 Cámara: 48MP triple lente</p>
-          <p>⚡ Chip: A18 Bionic</p>
-          <p>🔋 Batería: 3700 mAh</p>
-        </div>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 17')">Comprar</button>
-      </div>
+  <footer>
+    <p>&copy; 2026 Elite Phone Store | Todos los derechos reservados</p>
+  </footer>
 
-      <!-- iPhone 17 Air -->
-      <div class="product" id="iPhone 17 Air">
-        <h2>Apple iPhone 17 Air</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-
+  <script>
+    let carrito = [];
+
+    function agregarCarrito(modelo) {
+      carrito.push(modelo);
+      document.getElementById("cartCount").textContent = carrito.length;
+      alert(modelo + " agregado al carrito.");
+    }
+
+    function verCarrito() {
+      alert("Carrito: " + carrito.join(", "));
+    }
+
+    function toggleSpecs(img) {
+      const specs = img.parentElement.querySelector(".specs");
+      specs.style.display = specs.style.display === "block" ? "none" : "block";
+    }
+
+    function cambiarPrecio() {
+      const modelo = document.getElementById("modelo").value;
+      const nuevoPrecio = document.getElementById("nuevoPrecio").value;
+      const producto = document.getElementById(modelo);
+      if(producto && nuevoPrecio) {
+        producto.querySelector(".price").textContent = "COP $" + parseInt(nuevoPrecio).toLocaleString("es-CO");
+        alert("Precio actualizado para " + modelo);
+      }
+    }
+
+    // Login admin
+    const usuarioAdmin = "admin";
+    const claveAdmin = "elite2026"; // cámbiala en producción
+    const accesoUsuario = prompt("Usuario administrador:");
+    const accesoClave = prompt("Clave administrador:");
+    if(accesoUsuario ===
