@@ -18,12 +18,14 @@
     .product:hover {box-shadow:0 6px 15px rgba(0,0,0,0.2);}
     .product img {width:100%;height:auto;margin-bottom:1rem;cursor:pointer;}
     .price {font-size:1.2rem;color:#007aff;font-weight:bold;}
-    .old-price {text-decoration:line-through;color:#888;margin-right:0.5rem;}
     .specs {text-align:left;font-size:0.9rem;margin-top:1rem;display:none;}
     .buy-btn {background:#007aff;color:#fff;border:none;padding:0.8rem 1.2rem;border-radius:6px;cursor:pointer;margin-top:1rem;}
     .buy-btn:hover {background:#005bb5;}
     footer {background:#000;color:#fff;text-align:center;padding:1rem;margin-top:2rem;}
     #adminPanel {display:none;background:#eee;padding:1rem;margin:1rem;border-radius:8px;}
+    #cartModal {display:none;position:fixed;top:20%;left:50%;transform:translateX(-50%);background:#fff;padding:2rem;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.3);z-index:1000;width:300px;}
+    #cartModal h3 {margin-top:0;}
+    #closeCart {background:#ff3b30;color:#fff;border:none;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;}
   </style>
 </head>
 <body>
@@ -54,9 +56,16 @@
     <button onclick="cambiarPrecio()">Actualizar Precio</button>
   </section>
 
+  <!-- Modal Carrito -->
+  <div id="cartModal">
+    <h3>Carrito de Compras</h3>
+    <ul id="cartItems"></ul>
+    <button id="closeCart" onclick="cerrarCarrito()">Cerrar</button>
+  </div>
+
   <main>
     <section class="catalog" id="catalogo">
-      <!-- iPhones 13–17 en normal, Pro y Pro Max -->
+      <!-- Aquí van todos los productos: iPhone 13–17 normal, Pro, Pro Max, AirPods y cargador -->
       <!-- Ejemplo: iPhone 13 -->
       <div class="product" id="iPhone 13" data-category="iPhone">
         <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13.jpg" alt="iPhone 13" onclick="toggleSpecs(this)">
@@ -65,36 +74,72 @@
         <button class="buy-btn" onclick="agregarCarrito('iPhone 13')">Comprar</button>
         <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: Dual 12MP</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3240 mAh</p></div>
       </div>
-      <!-- Repite la misma estructura para iPhone 13 Pro, 13 Pro Max, 14, 14 Pro, 14 Pro Max, 15, 15 Pro, 15 Pro Max, 16, 16 Pro, 16 Pro Max, 17, 17 Pro, 17 Pro Max -->
+      <!-- Repite la misma estructura para todos los demás productos -->
+    </section>
+  </main>
 
-      <!-- AirPods -->
-      <div class="product" id="AirPods 4" data-category="Accesorios">
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-4.jpg" alt="AirPods 4" onclick="toggleSpecs(this)">
-        <h2>AirPods 4</h2>
-        <p class="price">COP $900,000</p>
-        <button class="buy-btn" onclick="agregarCarrito('AirPods 4')">Comprar</button>
-        <div class="specs"><p>🎧 Sonido: Alta fidelidad</p><p>🔋 Batería: 6 horas</p><p>⚡ Chip: H2</p></div>
-      </div>
-      <div class="product" id="AirPods 2 Pro" data-category="Accesorios">
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-pro-2.jpg" alt="AirPods 2 Pro" onclick="toggleSpecs(this)">
-        <h2>AirPods 2 Pro</h2>
-        <p class="price">COP $1,100,000</p>
-        <button class="buy-btn" onclick="agregarCarrito('AirPods 2 Pro')">Comprar</button>
-        <div class="specs"><p>🎧 Cancelación activa de ruido</p><p>🔋 Batería: 6 horas</p><p>⚡ Chip: H2</p></div>
-      </div>
-      <div class="product" id="AirPods 3 Pro" data-category="Accesorios">
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-pro-3.jpg" alt="AirPods 3 Pro" onclick="toggleSpecs(this)">
-        <h2>AirPods 3 Pro</h2>
-        <p class="price">COP $1,300,000</p>
-        <button class="buy-btn" onclick="agregarCarrito('AirPods 3 Pro')">Comprar</button>
-        <div class="specs"><p>🎧 Sonido espacial</p><p>🔋 Batería: 7 horas</p><p>⚡ Chip: H3</p></div>
-      </div>
-      <div class="product" id="AirPods AAA" data-category="Accesorios">
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-aaa.jpg" alt="AirPods AAA" onclick="toggleSpecs(this)">
-        <h2>AirPods AAA</h2>
-        <p class="price">COP $1,500,000</p>
-        <button class="buy-btn" onclick="agregarCarrito('AirPods AAA')">Comprar</button>
-        <div class="specs"><p>🎧 Edición especial</p><p>🔋 Batería: 8 horas</p><p>⚡ Chip: H3+</p></div>
-      </div>
+  <footer>
+    <p>&copy; 2026 Elite Phone Store | Todos los derechos reservados</p>
+  </footer>
 
-      <!-- Cargador -->
+  <script>
+    let carrito = [];
+
+    function agregarCarrito(modelo) {
+      carrito.push(modelo);
+      document.getElementById("cartCount").textContent = carrito.length;
+      actualizarCarrito();
+    }
+
+    function verCarrito() {
+      document.getElementById("cartModal").style.display = "block";
+    }
+
+    function cerrarCarrito() {
+      document.getElementById("cartModal").style.display = "none";
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById("cartItems");
+      lista.innerHTML = "";
+      carrito.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        lista.appendChild(li);
+      });
+    }
+
+    function toggleSpecs(img) {
+      const specs = img.parentElement.querySelector(".specs");
+      specs.style.display = specs.style.display === "block" ? "none" : "block";
+    }
+
+    function cambiarPrecio() {
+      const modelo = document.getElementById("modelo").value;
+      const nuevoPrecio = document.getElementById("nuevoPrecio").value;
+      const producto = document.getElementById(modelo);
+      if(producto && nuevoPrecio) {
+        producto.querySelector(".price").textContent = "COP $" + parseInt(nuevoPrecio).toLocaleString("es-CO");
+        alert("Precio actualizado para " + modelo);
+      }
+    }
+
+    function buscarProducto() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const productos = document.querySelectorAll(".product");
+      productos.forEach(p => {
+        const nombre = p.querySelector("h2").textContent.toLowerCase();
+        p.style.display = nombre.includes(input) ? "block" : "none";
+      });
+    }
+
+    function filtrarCategoria(cat) {
+      const productos = document.querySelectorAll(".product");
+      productos.forEach(p => {
+        const categoria = p.getAttribute("data-category");
+        p.style.display = (categoria === cat) ? "block" : "none";
+      });
+    }
+  </script>
+</body>
+</html>
