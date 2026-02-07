@@ -154,48 +154,36 @@
         </div>
         <button class="buy-btn" onclick="agregarCarrito('iPhone 15')">Comprar</button>
       </div>
-      <!-- Puedes seguir con iPhone 16, 17 y 17 Air igual -->
-    </section>
-  </main>
 
-  <footer>
-    <p>&copy; 2026 Elite Phone Store | Todos los derechos reservados</p>
-  </footer>
+      <!-- iPhone 16 -->
+      <div class="product" id="iPhone 16">
+        <h2>Apple iPhone 16</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-16.jpg" alt="Apple iPhone 16" onclick="toggleSpecs(this)">
+        <p class="price">COP $4,500,000</p>
+        <div class="specs">
+          <p>📱 Pantalla: 6.3" Super Retina XDR</p>
+          <p>📸 Cámara: 48MP + 12MP ultra wide</p>
+          <p>⚡ Chip: A17 Pro</p>
+          <p>🔋 Batería: 3500 mAh</p>
+        </div>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 16')">Comprar</button>
+      </div>
 
-  <script>
-    let carrito = [];
+      <!-- iPhone 17 -->
+      <div class="product" id="iPhone 17">
+        <h2>Apple iPhone 17</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-17.jpg" alt="Apple iPhone 17" onclick="toggleSpecs(this)">
+        <p class="price">COP $5,200,000</p>
+        <div class="specs">
+          <p>📱 Pantalla: 6.3" ProMotion OLED</p>
+          <p>📸 Cámara: 48MP triple lente</p>
+          <p>⚡ Chip: A18 Bionic</p>
+          <p>🔋 Batería: 3700 mAh</p>
+        </div>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 17')">Comprar</button>
+      </div>
 
-    function agregarCarrito(modelo) {
-      carrito.push(modelo);
-      document.getElementById("cartCount").textContent = carrito.length;
-      alert(modelo + " agregado al carrito.");
-    }
-
-    function verCarrito() {
-      alert("Carrito: " + carrito.join(", "));
-    }
-
-    function toggleSpecs(img) {
-      const specs = img.parentElement.querySelector(".specs");
-      specs.style.display = specs.style.display === "block" ? "none" : "block";
-    }
-
-    function cambiarPrecio() {
-      const modelo = document.getElementById("modelo").value;
-      const nuevoPrecio = document.getElementById("nuevoPrecio").value;
-      const producto = document.getElementById(modelo);
-      if(producto && nuevoPrecio) {
-        producto.querySelector(".price").textContent = "COP $" + parseInt(nuevoPrecio).toLocaleString("es-CO");
-        alert("Precio actualizado para " + modelo);
-      }
-    }
-
-    // Login simple para admin
-    const claveAdmin = "admin123"; // cámbiala en producción
-    const acceso = prompt("Ingrese clave de administrador para activar modo admin (o deje vacío para cliente):");
-    if(acceso === claveAdmin) {
-      document.getElementById("adminPanel").style.display = "block";
-    }
-  </script>
-</body>
-</html>
+      <!-- iPhone 17 Air -->
+      <div class="product" id="iPhone 17 Air">
+        <h2>Apple iPhone 17 Air</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-
