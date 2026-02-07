@@ -1,143 +1,30 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elite Phone Store</title>
-  <style>
-    body {font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:0;background:#f5f5f5;color:#333;}
-    header {background:#000;color:#fff;padding:1.5rem;text-align:center;position:relative;}
-    nav {background:#111;color:#fff;display:flex;justify-content:center;gap:2rem;padding:1rem;}
-    nav button {background:#007aff;color:#fff;border:none;padding:0.6rem 1rem;border-radius:6px;cursor:pointer;}
-    nav button:hover {background:#005bb5;}
-    .search-bar {text-align:center;margin:1rem;}
-    .search-bar input {padding:0.6rem;width:60%;border-radius:6px;border:1px solid #ccc;}
-    .cart {position:absolute;right:20px;top:20px;background:#007aff;color:#fff;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;}
-    .catalog {display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:2rem;}
-    .product {background:#fff;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);padding:1.5rem;text-align:center;transition:transform 0.2s ease;}
-    .product:hover {transform:translateY(-5px);}
-    .product img {max-width:100%;height:auto;border-radius:8px;margin-bottom:1rem;cursor:pointer;}
-    .price {font-size:1.2rem;font-weight:bold;color:#007aff;margin:0.5rem 0;}
-    .specs {text-align:left;font-size:0.9rem;margin-top:1rem;display:none;}
-    .buy-btn {background:#007aff;color:#fff;border:none;padding:0.8rem 1.2rem;border-radius:6px;cursor:pointer;margin-top:1rem;transition:background 0.3s ease;}
-    .buy-btn:hover {background:#005bb5;}
-    footer {background:#000;color:#fff;text-align:center;padding:1rem;margin-top:2rem;}
-    #adminPanel {display:none;background:#eee;padding:1rem;margin:1rem;border-radius:8px;}
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Catálogo Elite Phone Store</h1>
-    <p>Los últimos modelos de Apple con precios en COP</p>
-    <div class="cart" onclick="verCarrito()">🛒 Carrito (<span id="cartCount">0</span>)</div>
-  </header>
-
-  <!-- Barra de navegación -->
+<header>
+  <h1>Elite Phone Store</h1>
   <nav>
     <button onclick="filtrarCategoria('iPhone')">📱 Dispositivos</button>
     <button onclick="filtrarCategoria('Accesorios')">🎧 Accesorios</button>
     <button onclick="filtrarCategoria('Protectores')">🛡️ Protectores</button>
+    <div class="cart" onclick="verCarrito()">🛒 Carrito (<span id="cartCount">0</span>)</div>
   </nav>
-
-  <!-- Barra de búsqueda -->
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="Buscar producto..." onkeyup="buscarProducto()">
   </div>
+</header>
 
-  <!-- Panel de administración oculto -->
-  <section id="adminPanel">
-    <h3>Modo Administrador</h3>
-    <p>Cambia el precio de un modelo:</p>
-    <input type="text" id="modelo" placeholder="Ej: iPhone 15 Pro Max">
-    <input type="number" id="nuevoPrecio" placeholder="Nuevo precio COP">
-    <button onclick="cambiarPrecio()">Actualizar Precio</button>
+<main>
+  <section class="catalog">
+    <div class="product" data-category="iPhone">
+      <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15-pro.jpg" alt="iPhone 15 Pro" onclick="toggleSpecs(this)">
+      <h2>iPhone 15 Pro</h2>
+      <p class="price"><span class="old-price">COP $4,500,000</span> COP $3,800,000</p>
+      <button class="buy-btn" onclick="agregarCarrito('iPhone 15 Pro')">Comprar</button>
+      <div class="specs">
+        <p>📱 Pantalla: 6.1" ProMotion OLED</p>
+        <p>📸 Cámara: Triple 48MP</p>
+        <p>⚡ Chip: A17 Pro</p>
+        <p>🔋 Batería: 3500 mAh</p>
+      </div>
+    </div>
+    <!-- Aquí se repite la misma estructura para cada modelo y accesorio -->
   </section>
-
-  <main>
-    <section class="catalog" id="catalogo">
-      <!-- Ejemplo iPhone 13 -->
-      <div class="product" id="iPhone 13" data-category="iPhone">
-        <h2>Apple iPhone 13</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13.jpg" alt="iPhone 13" onclick="toggleSpecs(this)">
-        <p class="price">COP $2,800,000</p>
-        <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: Dual 12MP</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3240 mAh</p></div>
-        <button class="buy-btn" onclick="agregarCarrito('iPhone 13')">Comprar</button>
-      </div>
-
-      <!-- AirPods -->
-      <div class="product" id="AirPods 4" data-category="Accesorios">
-        <h2>Apple AirPods 4</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-airpods-4.jpg" alt="AirPods 4" onclick="toggleSpecs(this)">
-        <p class="price">COP $900,000</p>
-        <div class="specs"><p>🎧 Sonido: Alta fidelidad</p><p>🔋 Batería: 6 horas</p><p>⚡ Chip: H2</p></div>
-        <button class="buy-btn" onclick="agregarCarrito('AirPods 4')">Comprar</button>
-      </div>
-
-      <!-- Cargador -->
-      <div class="product" id="Cargador 20W" data-category="Accesorios">
-        <h2>Apple Cargador 20W</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-charger-20w.jpg" alt="Cargador 20W" onclick="toggleSpecs(this)">
-        <p class="price">COP $120,000</p>
-        <div class="specs"><p>⚡ Potencia: 20W</p><p>🔌 Puerto: USB-C</p><p>📱 Compatibilidad: iPhone y AirPods</p></div>
-        <button class="buy-btn" onclick="agregarCarrito('Cargador 20W')">Comprar</button>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 Elite Phone Store | Todos los derechos reservados</p>
-  </footer>
-
-  <script>
-    let carrito = [];
-
-    function agregarCarrito(modelo) {
-      carrito.push(modelo);
-      document.getElementById("cartCount").textContent = carrito.length;
-      alert(modelo + " agregado al carrito.");
-    }
-
-    function verCarrito() {
-      alert("Carrito: " + carrito.join(", "));
-    }
-
-    function toggleSpecs(img) {
-      const specs = img.parentElement.querySelector(".specs");
-      specs.style.display = specs.style.display === "block" ? "none" : "block";
-    }
-
-    function cambiarPrecio() {
-      const modelo = document.getElementById("modelo").value;
-      const nuevoPrecio = document.getElementById("nuevoPrecio").value;
-      const producto = document.getElementById(modelo);
-      if(producto && nuevoPrecio) {
-        producto.querySelector(".price").textContent = "COP $" + parseInt(nuevoPrecio).toLocaleString("es-CO");
-        alert("Precio actualizado para " + modelo);
-      }
-    }
-
-    function buscarProducto() {
-      const input = document.getElementById("searchInput").value.toLowerCase();
-      const productos = document.querySelectorAll(".product");
-      productos.forEach(p => {
-        const nombre = p.querySelector("h2").textContent.toLowerCase();
-        p.style.display = nombre.includes(input) ? "block" : "none";
-      });
-    }
-
-    function filtrarCategoria(cat) {
-      const productos = document.querySelectorAll(".product");
-      productos.forEach(p => {
-        const categoria = p.getAttribute("data-category");
-        p.style.display = (categoria === cat) ? "block" : "none";
-      });
-    }
-
-    // Login admin
-    const usuarioAdmin = "admin";
-    const claveAdmin = "elite2026";
-    const accesoUsuario = prompt("Usuario administrador:");
-    const accesoClave = prompt("Clave administrador:");
-    if(accesoUsuario === usuarioAdmin && accesoClave === claveAdmin) {
-      document.getElementById("adminPanel").style.display = "block";
-
+</main>
