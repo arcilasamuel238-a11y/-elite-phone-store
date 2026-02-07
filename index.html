@@ -52,6 +52,29 @@
       font-size: 0.9rem;
       margin-top: 1rem;
     }
+    .buy-btn {
+      background: #007aff;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
+    }
+    .buy-btn:hover {
+      background: #005bb5;
+    }
+    .admin-panel {
+      background: #eee;
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 8px;
+    }
+    .admin-panel input {
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+    }
     footer {
       background: #000;
       color: #fff;
@@ -64,87 +87,102 @@
 <body>
   <header>
     <h1>Catálogo Elite Phone Store</h1>
-    <p>Los últimos modelos de Apple con precios y especificaciones</p>
+    <p>Los últimos modelos de Apple con precios en COP</p>
   </header>
+
+  <!-- Panel de administración -->
+  <section class="admin-panel">
+    <h3>Modo Administrador</h3>
+    <p>Cambia el precio de un modelo:</p>
+    <input type="text" id="modelo" placeholder="Ej: iPhone 15">
+    <input type="number" id="nuevoPrecio" placeholder="Nuevo precio COP">
+    <button onclick="cambiarPrecio()">Actualizar Precio</button>
+  </section>
 
   <main>
     <section class="catalog">
       <!-- iPhone 13 -->
-      <div class="product">
+      <div class="product" id="iPhone 13">
         <h2>Apple iPhone 13</h2>
         <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-1.jpg" alt="Apple iPhone 13">
-        <p class="price">USD $699</p>
+        <p class="price">COP $2,800,000</p>
         <div class="specs">
           <p>📱 Pantalla: 6.1" Super Retina XDR</p>
           <p>📸 Cámara: Dual 12MP</p>
           <p>⚡ Chip: A15 Bionic</p>
           <p>🔋 Batería: 3240 mAh</p>
         </div>
+        <button class="buy-btn">Comprar</button>
       </div>
 
       <!-- iPhone 14 -->
-      <div class="product">
+      <div class="product" id="iPhone 14">
         <h2>Apple iPhone 14</h2>
         <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14-1.jpg" alt="Apple iPhone 14">
-        <p class="price">USD $799</p>
+        <p class="price">COP $3,200,000</p>
         <div class="specs">
           <p>📱 Pantalla: 6.1" Super Retina XDR</p>
           <p>📸 Cámara: Dual 12MP mejorada</p>
           <p>⚡ Chip: A15 Bionic (5 núcleos GPU)</p>
           <p>🔋 Batería: 3279 mAh</p>
         </div>
+        <button class="buy-btn">Comprar</button>
       </div>
 
       <!-- iPhone 15 -->
-      <div class="product">
+      <div class="product" id="iPhone 15">
         <h2>Apple iPhone 15</h2>
         <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15-1.jpg" alt="Apple iPhone 15">
-        <p class="price">USD $899</p>
+        <p class="price">COP $3,800,000</p>
         <div class="specs">
           <p>📱 Pantalla: 6.1" Super Retina XDR</p>
           <p>📸 Cámara: 48MP + 12MP</p>
           <p>⚡ Chip: A16 Bionic</p>
           <p>🔋 Batería: 3349 mAh</p>
         </div>
+        <button class="buy-btn">Comprar</button>
       </div>
 
       <!-- iPhone 16 -->
-      <div class="product">
+      <div class="product" id="iPhone 16">
         <h2>Apple iPhone 16</h2>
         <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-16-1.jpg" alt="Apple iPhone 16">
-        <p class="price">USD $999</p>
+        <p class="price">COP $4,500,000</p>
         <div class="specs">
           <p>📱 Pantalla: 6.3" Super Retina XDR</p>
           <p>📸 Cámara: 48MP + 12MP ultra wide</p>
           <p>⚡ Chip: A17 Pro</p>
           <p>🔋 Batería: 3500 mAh</p>
         </div>
+        <button class="buy-btn">Comprar</button>
       </div>
 
       <!-- iPhone 17 -->
-      <div class="product">
+      <div class="product" id="iPhone 17">
         <h2>Apple iPhone 17</h2>
         <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-17-1.jpg" alt="Apple iPhone 17">
-        <p class="price">USD $1099</p>
+        <p class="price">COP $5,200,000</p>
         <div class="specs">
           <p>📱 Pantalla: 6.3" ProMotion OLED</p>
           <p>📸 Cámara: 48MP triple lente</p>
           <p>⚡ Chip: A18 Bionic</p>
           <p>🔋 Batería: 3700 mAh</p>
         </div>
+        <button class="buy-btn">Comprar</button>
       </div>
 
       <!-- iPhone 17 Air -->
-      <div class="product">
+      <div class="product" id="iPhone 17 Air">
         <h2>Apple iPhone 17 Air</h2>
         <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-air-1.jpg" alt="Apple iPhone 17 Air">
-        <p class="price">USD $1199</p>
+        <p class="price">COP $6,000,000</p>
         <div class="specs">
           <p>📱 Pantalla: 6.7" ProMotion OLED</p>
           <p>📸 Cámara: 48MP + LiDAR</p>
           <p>⚡ Chip: A18 Pro</p>
           <p>🔋 Batería: 4000 mAh</p>
         </div>
+        <button class="buy-btn">Comprar</button>
       </div>
     </section>
   </main>
@@ -152,5 +190,12 @@
   <footer>
     <p>&copy; 2026 Elite Phone Store | Todos los derechos reservados</p>
   </footer>
-</body>
-</html>
+
+  <script>
+    function cambiarPrecio() {
+      const modelo = document.getElementById("modelo").value;
+      const nuevoPrecio = document.getElementById("nuevoPrecio").value;
+      const producto = document.getElementById(modelo);
+      if(producto && nuevoPrecio) {
+        producto.querySelector(".price").textContent = "COP $" + parseInt(nuevoPrecio).toLocaleString("es-CO");
+        alert("Precio actualizado
