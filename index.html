@@ -154,3 +154,36 @@ function clearCart(){cart=[];renderCart()}
 function renderCart(){
   let html="",total=0
   cart.forEach(p=>{html+=`<div class='item'>${
+
+  <script>
+const USER="admin"
+const PASSWORD="Heidy.011625"
+
+let products=[
+  {name:"iPhone 13",price:1800000,specs:"Pantalla 6.1 · Chip A15 · Cámara 12MP",mem:"128GB",img:"https://upload.wikimedia.org/wikipedia/commons/1/1e/IPhone_13.png"},
+  {name:"iPhone 14",price:2200000,specs:"Pantalla 6.1 · Chip A15 · Cámara mejorada",mem:"128GB",img:"https://upload.wikimedia.org/wikipedia/commons/3/3a/IPhone_14.png"},
+  {name:"iPhone 15",price:2800000,specs:"USB‑C · Cámara 48MP · Chip A16",mem:"128GB",img:"https://upload.wikimedia.org/wikipedia/commons/4/4d/IPhone_15.png"},
+  {name:"iPhone 15 Pro Max",price:3200000,specs:"Zoom 5x · Titanio · A17 Pro",mem:"256GB",img:"https://upload.wikimedia.org/wikipedia/commons/5/5e/IPhone_15_Pro_Max.png"}
+]
+
+let filtered=[...products]
+const grid=document.getElementById('grid')
+
+function renderProducts(){
+  grid.innerHTML=""
+  filtered.forEach(p=>{
+    const div=document.createElement('div')
+    div.className='card'
+    div.innerHTML=`
+      <img src="${p.img}" alt="${p.name}" onclick="openModal('${p.name}','${p.specs}','${p.mem}')">
+      <h3>${p.name}</h3>
+      <div class="spec">${p.specs}</div>
+      <div class="price">$${p.price.toLocaleString()}</div>
+      <button onclick="add('${p.name}',${p.price})">Añadir al carrito</button>
+    `
+    grid.appendChild(div)
+  })
+}
+renderProducts()
+</script>
+
