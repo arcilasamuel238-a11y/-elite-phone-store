@@ -5,93 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Elite Phone Store</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f5f5f5;
-      color: #333;
-    }
-    header {
-      background: #000;
-      color: #fff;
-      padding: 1.5rem;
-      text-align: center;
-      position: relative;
-    }
-    .cart {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      background: #007aff;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .catalog {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-    }
-    .product {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      padding: 1.5rem;
-      text-align: center;
-      transition: transform 0.2s ease;
-    }
-    .product:hover {
-      transform: translateY(-5px);
-    }
-    .product img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      cursor: pointer;
-    }
-    .price {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #007aff;
-      margin: 0.5rem 0;
-    }
-    .specs {
-      text-align: left;
-      font-size: 0.9rem;
-      margin-top: 1rem;
-      display: none;
-    }
-    .buy-btn {
-      background: #007aff;
-      color: #fff;
-      border: none;
-      padding: 0.8rem 1.2rem;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: background 0.3s ease;
-    }
-    .buy-btn:hover {
-      background: #005bb5;
-    }
-    footer {
-      background: #000;
-      color: #fff;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-    #adminPanel {
-      display: none;
-      background: #eee;
-      padding: 1rem;
-      margin: 1rem;
-      border-radius: 8px;
-    }
+    body {font-family:'Segoe UI',Arial,sans-serif;margin:0;padding:0;background:#f5f5f5;color:#333;}
+    header {background:#000;color:#fff;padding:1.5rem;text-align:center;position:relative;}
+    .cart {position:absolute;right:20px;top:20px;background:#007aff;color:#fff;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;}
+    .catalog {display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;padding:2rem;}
+    .product {background:#fff;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);padding:1.5rem;text-align:center;transition:transform 0.2s ease;}
+    .product:hover {transform:translateY(-5px);}
+    .product img {max-width:100%;height:auto;border-radius:8px;margin-bottom:1rem;cursor:pointer;}
+    .price {font-size:1.2rem;font-weight:bold;color:#007aff;margin:0.5rem 0;}
+    .specs {text-align:left;font-size:0.9rem;margin-top:1rem;display:none;}
+    .buy-btn {background:#007aff;color:#fff;border:none;padding:0.8rem 1.2rem;border-radius:6px;cursor:pointer;margin-top:1rem;transition:background 0.3s ease;}
+    .buy-btn:hover {background:#005bb5;}
+    footer {background:#000;color:#fff;text-align:center;padding:1rem;margin-top:2rem;}
+    #adminPanel {display:none;background:#eee;padding:1rem;margin:1rem;border-radius:8px;}
   </style>
 </head>
 <body>
@@ -112,92 +38,55 @@
 
   <main>
     <section class="catalog">
-      <!-- iPhone 13 -->
+      <!-- iPhone 13 / Pro / Pro Max -->
       <div class="product" id="iPhone 13">
         <h2>Apple iPhone 13</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13.jpg" alt="Apple iPhone 13" onclick="toggleSpecs(this)">
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13.jpg" alt="iPhone 13" onclick="toggleSpecs(this)">
         <p class="price">COP $2,800,000</p>
-        <div class="specs">
-          <p>📱 Pantalla: 6.1" Super Retina XDR</p>
-          <p>📸 Cámara: Dual 12MP</p>
-          <p>⚡ Chip: A15 Bionic</p>
-          <p>🔋 Batería: 3240 mAh</p>
-        </div>
+        <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: Dual 12MP</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3240 mAh</p></div>
         <button class="buy-btn" onclick="agregarCarrito('iPhone 13')">Comprar</button>
       </div>
-
-      <!-- iPhone 13 Pro -->
       <div class="product" id="iPhone 13 Pro">
         <h2>Apple iPhone 13 Pro</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro.jpg" alt="Apple iPhone 13 Pro" onclick="toggleSpecs(this)">
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro.jpg" alt="iPhone 13 Pro" onclick="toggleSpecs(this)">
         <p class="price">COP $3,500,000</p>
-        <div class="specs">
-          <p>📱 Pantalla: 6.1" ProMotion OLED</p>
-          <p>📸 Cámara: Triple 12MP + LiDAR</p>
-          <p>⚡ Chip: A15 Bionic</p>
-          <p>🔋 Batería: 3095 mAh</p>
-        </div>
+        <div class="specs"><p>📱 Pantalla: 6.1" ProMotion OLED</p><p>📸 Cámara: Triple 12MP + LiDAR</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3095 mAh</p></div>
         <button class="buy-btn" onclick="agregarCarrito('iPhone 13 Pro')">Comprar</button>
       </div>
-
-      <!-- iPhone 13 Pro Max -->
       <div class="product" id="iPhone 13 Pro Max">
         <h2>Apple iPhone 13 Pro Max</h2>
-        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max.jpg" alt="Apple iPhone 13 Pro Max" onclick="toggleSpecs(this)">
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-pro-max.jpg" alt="iPhone 13 Pro Max" onclick="toggleSpecs(this)">
         <p class="price">COP $3,900,000</p>
-        <div class="specs">
-          <p>📱 Pantalla: 6.7" ProMotion OLED</p>
-          <p>📸 Cámara: Triple 12MP + LiDAR</p>
-          <p>⚡ Chip: A15 Bionic</p>
-          <p>🔋 Batería: 4352 mAh</p>
-        </div>
+        <div class="specs"><p>📱 Pantalla: 6.7" ProMotion OLED</p><p>📸 Cámara: Triple 12MP + LiDAR</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 4352 mAh</p></div>
         <button class="buy-btn" onclick="agregarCarrito('iPhone 13 Pro Max')">Comprar</button>
       </div>
 
       <!-- iPhone 14 / Pro / Pro Max -->
+      <div class="product" id="iPhone 14">
+        <h2>Apple iPhone 14</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14.jpg" alt="iPhone 14" onclick="toggleSpecs(this)">
+        <p class="price">COP $3,200,000</p>
+        <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: Dual 12MP</p><p>⚡ Chip: A15 Bionic</p><p>🔋 Batería: 3279 mAh</p></div>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 14')">Comprar</button>
+      </div>
+      <div class="product" id="iPhone 14 Pro">
+        <h2>Apple iPhone 14 Pro</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14-pro.jpg" alt="iPhone 14 Pro" onclick="toggleSpecs(this)">
+        <p class="price">COP $4,200,000</p>
+        <div class="specs"><p>📱 Pantalla: 6.1" ProMotion OLED</p><p>📸 Cámara: Triple 48MP</p><p>⚡ Chip: A16 Bionic</p><p>🔋 Batería: 3200 mAh</p></div>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 14 Pro')">Comprar</button>
+      </div>
+      <div class="product" id="iPhone 14 Pro Max">
+        <h2>Apple iPhone 14 Pro Max</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14-pro-max.jpg" alt="iPhone 14 Pro Max" onclick="toggleSpecs(this)">
+        <p class="price">COP $4,800,000</p>
+        <div class="specs"><p>📱 Pantalla: 6.7" ProMotion OLED</p><p>📸 Cámara: Triple 48MP</p><p>⚡ Chip: A16 Bionic</p><p>🔋 Batería: 4323 mAh</p></div>
+        <button class="buy-btn" onclick="agregarCarrito('iPhone 14 Pro Max')">Comprar</button>
+      </div>
+
       <!-- iPhone 15 / Pro / Pro Max -->
-      <!-- iPhone 16 / Pro / Pro Max -->
-      <!-- iPhone 17 / Pro / Pro Max -->
-      <!-- AirPods 4, 2 Pro, 3 Pro, AAA -->
-      <!-- (Se repite la misma estructura con imágenes oficiales de GSMArena) -->
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 Elite Phone Store | Todos los derechos reservados</p>
-  </footer>
-
-  <script>
-    let carrito = [];
-
-    function agregarCarrito(modelo) {
-      carrito.push(modelo);
-      document.getElementById("cartCount").textContent = carrito.length;
-      alert(modelo + " agregado al carrito.");
-    }
-
-    function verCarrito() {
-      alert("Carrito: " + carrito.join(", "));
-    }
-
-    function toggleSpecs(img) {
-      const specs = img.parentElement.querySelector(".specs");
-      specs.style.display = specs.style.display === "block" ? "none" : "block";
-    }
-
-    function cambiarPrecio() {
-      const modelo = document.getElementById("modelo").value;
-      const nuevoPrecio = document.getElementById("nuevoPrecio").value;
-      const producto = document.getElementById(modelo);
-      if(producto && nuevoPrecio) {
-        producto.querySelector(".price").textContent = "COP $" + parseInt(nuevoPrecio).toLocaleString("es-CO");
-        alert("Precio actualizado para " + modelo);
-      }
-    }
-
-    // Login admin
-    const usuarioAdmin = "admin";
-    const claveAdmin = "elite2026"; // cámbiala en producción
-    const accesoUsuario = prompt("Usuario administrador:");
-    const accesoClave = prompt("Clave administrador:");
-    if(accesoUsuario ===
+      <div class="product" id="iPhone 15">
+        <h2>Apple iPhone 15</h2>
+        <img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15.jpg" alt="iPhone 15" onclick="toggleSpecs(this)">
+        <p class="price">COP $3,800,000</p>
+        <div class="specs"><p>📱 Pantalla: 6.1" Super Retina XDR</p><p>📸 Cámara: 48MP + 12MP</p><p>⚡ Chip: A16 Bionic</p><p>🔋 B
